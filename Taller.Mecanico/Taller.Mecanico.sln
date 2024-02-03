@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{A0E2D043-28FF-4048-BA88-834458D5F64A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{5E98A5F3-120D-4142-86C8-C2BDEC10E162}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3973C780-7EC7-471F-BEE5-B9EA906A3B76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{6560697C-8144-4E03-8EDF-AD4B2227A964}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Logic", "Taller.Mecanico.Logic\Taller.Mecanico.Logic.csproj", "{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Models", "Taller.Mecanico.Models\Taller.Mecanico.Models.csproj", "{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Persistence", "Taller.Mecanico.Persistence\Taller.Mecanico.Persistence.csproj", "{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.UI", "Taller.Mecanico.UI\Taller.Mecanico.UI.csproj", "{D1619699-66C7-4B5B-AC84-FE38C1F22813}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E528F8D-D5EE-42FC-AE18-F73E8412AA48} = {6560697C-8144-4E03-8EDF-AD4B2227A964}
+		{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A} = {5E98A5F3-120D-4142-86C8-C2BDEC10E162}
+		{95525E74-ADC0-432D-8DE6-F3B7CD990E1C} = {A0E2D043-28FF-4048-BA88-834458D5F64A}
+		{D1619699-66C7-4B5B-AC84-FE38C1F22813} = {3973C780-7EC7-471F-BEE5-B9EA906A3B76}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {491CBB46-5C88-42BA-B025-71CBF59D148A}
+	EndGlobalSection
+EndGlobal
