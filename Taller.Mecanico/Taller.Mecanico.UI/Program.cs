@@ -11,7 +11,6 @@ builder.Services.AddDbContext<TallerContext>(x => x.UseSqlServer(connectionStrin
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
 /*
 
   services.AddDbContext<dbActuContext>(cfg =>
