@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Persistence
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.UI", "Taller.Mecanico.UI\Taller.Mecanico.UI.csproj", "{D1619699-66C7-4B5B-AC84-FE38C1F22813}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App_Data", "App_Data", "{FC78E9D2-7254-47FF-8A0E-DF48DA91CCF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
