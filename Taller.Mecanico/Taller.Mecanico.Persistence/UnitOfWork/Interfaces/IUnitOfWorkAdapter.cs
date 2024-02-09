@@ -1,5 +1,4 @@
-﻿//https://www.youtube.com/watch?v=FZozGfArJTc
-namespace Taller.Mecanico.Persistence.UnitOfWork.Interfaces
+﻿namespace Taller.Mecanico.Persistence.UnitOfWork.Interfaces
 {
     /// <summary>
     /// Connect to dataBase and Acess to repository

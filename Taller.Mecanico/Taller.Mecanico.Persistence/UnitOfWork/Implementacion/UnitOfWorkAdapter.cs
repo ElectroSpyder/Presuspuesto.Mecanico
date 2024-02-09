@@ -12,7 +12,7 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
 
         public UnitOfWorkAdapter()
         {
-            _context = new SqlConnection(Parameters.ConnectionString);
+            _context = new SqlConnection(StringObjects.ConnectionString);
             _context.Open();
 
             _transaction = _context.BeginTransaction();
@@ -21,8 +21,7 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
         }
         public void Dispose()
         {
-            if(_transaction != null )
-                _transaction.Dispose();
+            _transaction?.Dispose();
             
 
             if(_context != null)
