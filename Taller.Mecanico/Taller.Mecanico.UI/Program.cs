@@ -1,12 +1,19 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Taller.Mecanico.Logic.Implementacion;
+using Taller.Mecanico.Logic.Interfaces;
 using Taller.Mecanico.Models.Context;
+using Taller.Mecanico.Persistence.UnitOfWork.Implementacion;
+using Taller.Mecanico.Persistence.UnitOfWork.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TallerContext>(x => x.UseSqlServer(connectionString));
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IVehiculoService, VehiculoService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

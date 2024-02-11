@@ -5,6 +5,6 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Interfaces
 {
     public interface IUnitOfWorkRepository
     {
-        public IAutomovilRepository automovilRepository { get; }
+        public IVehiculoRepository vehiculolRepository { get; }
     }
 }

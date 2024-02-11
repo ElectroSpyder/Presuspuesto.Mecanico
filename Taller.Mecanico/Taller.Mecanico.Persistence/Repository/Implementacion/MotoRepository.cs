@@ -1,19 +1,18 @@
 ﻿using System.Data.SqlClient;
-using Taller.Mecanico.Models.Auxiliar;
 using Taller.Mecanico.Models.Entities;
 using Taller.Mecanico.Persistence.Common;
 using Taller.Mecanico.Persistence.Repository.Interfaces;
 
 namespace Taller.Mecanico.Persistence.Repository.Implementacion
 {
-    public class AutomovilRepository : BaseRepository, IAutomovilRepository
+    public class MotoRepository : BaseRepository, IMotoRepository
     {
-        public AutomovilRepository(SqlConnection context, SqlTransaction transaction)
+        public MotoRepository(SqlConnection context, SqlTransaction transaction)
         {
             this._context = context;
             this._transaction = transaction;
         }
-        public void Create(Automovil automovil)
+        public void Create(Moto moto)
         {
             throw new NotImplementedException();
         }
@@ -23,31 +22,29 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             throw new NotImplementedException();
         }
 
-        public Automovil Get(int id)
+        public Moto Get(int id)
         {
-            var automovil = new Automovil();
-            var command = CreateCommand(StringObjects.GetAutomovil);
+            var moto = new Moto();
+            var command = CreateCommand(StringObjects.GetMoto);
             command.Parameters.AddWithValue("@id", id);
 
             using (var reader = command.ExecuteReader())
             {
                 reader.Read();
 
-                automovil.Id = Convert.ToInt32(reader["Id"]);
-                automovil.Tipo = Enum.Parse<Tipo>(Convert.ToString(value: reader["Tipo"]));
-                automovil.Descripcion = Convert.ToString(reader["Description"]);
-                automovil.CantidadPuertas = Convert.ToInt32(reader["CantidadPuertas"]);
+                moto.Id = Convert.ToInt32(reader["Id"]);
+                moto.Cilindrada = Convert.ToString(reader["Cilindrada"]);
             }
 
-            return automovil;
+            return moto;
         }
 
-        public IEnumerable<Automovil> GetAll()
+        public IEnumerable<Moto> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Automovil automovil)
+        public void Update(Moto moto)
         {
             throw new NotImplementedException();
         }

@@ -11,15 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{6560697C-8144-4E03-8EDF-AD4B2227A964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Logic", "Taller.Mecanico.Logic\Taller.Mecanico.Logic.csproj", "{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taller.Mecanico.Logic", "Taller.Mecanico.Logic\Taller.Mecanico.Logic.csproj", "{6E528F8D-D5EE-42FC-AE18-F73E8412AA48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Models", "Taller.Mecanico.Models\Taller.Mecanico.Models.csproj", "{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taller.Mecanico.Models", "Taller.Mecanico.Models\Taller.Mecanico.Models.csproj", "{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.Persistence", "Taller.Mecanico.Persistence\Taller.Mecanico.Persistence.csproj", "{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taller.Mecanico.Persistence", "Taller.Mecanico.Persistence\Taller.Mecanico.Persistence.csproj", "{95525E74-ADC0-432D-8DE6-F3B7CD990E1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.UI", "Taller.Mecanico.UI\Taller.Mecanico.UI.csproj", "{D1619699-66C7-4B5B-AC84-FE38C1F22813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taller.Mecanico.UI", "Taller.Mecanico.UI\Taller.Mecanico.UI.csproj", "{D1619699-66C7-4B5B-AC84-FE38C1F22813}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App_Data", "App_Data", "{FC78E9D2-7254-47FF-8A0E-DF48DA91CCF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DTO", "DTO", "{469A96A1-A6D5-401D-9BE4-7CBC6D467295}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntitiesDTO", "EntitiesDTO\EntitiesDTO.csproj", "{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.API", "Taller.Mecanico.API\Taller.Mecanico.API.csproj", "{7CF98499-60E7-4FF9-9566-61928CEE4F8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,14 @@ Global
 		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1619699-66C7-4B5B-AC84-FE38C1F22813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +66,8 @@ Global
 		{D7D3FEFE-FC3C-4237-BB73-9A0326C9507A} = {5E98A5F3-120D-4142-86C8-C2BDEC10E162}
 		{95525E74-ADC0-432D-8DE6-F3B7CD990E1C} = {A0E2D043-28FF-4048-BA88-834458D5F64A}
 		{D1619699-66C7-4B5B-AC84-FE38C1F22813} = {3973C780-7EC7-471F-BEE5-B9EA906A3B76}
+		{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8} = {469A96A1-A6D5-401D-9BE4-7CBC6D467295}
+		{7CF98499-60E7-4FF9-9566-61928CEE4F8B} = {3973C780-7EC7-471F-BEE5-B9EA906A3B76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {491CBB46-5C88-42BA-B025-71CBF59D148A}
