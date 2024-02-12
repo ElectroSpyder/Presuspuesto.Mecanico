@@ -1,4 +1,4 @@
-﻿using Taller.Mecanico.EntitiesDTO.DTO;
+﻿using EntitiesDTO.DTO;
 using Taller.Mecanico.Logic.Interfaces;
 using Taller.Mecanico.Persistence.UnitOfWork.Interfaces;
 
@@ -12,6 +12,13 @@ namespace Taller.Mecanico.Logic.Implementacion
             _unitOfOfWork = unitOfWork;
         }
 
+        public bool Create(VehiculoDTO entity)
+        {
+            using (var context = _unitOfOfWork.Create())
+            {
+                return context.Repositories.vehiculolRepository.Create(entity);
+            }
+        }
         public VehiculoDTO Get(int id)
         {
             var vehiculo = new VehiculoDTO();

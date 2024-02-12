@@ -1,4 +1,4 @@
-﻿using Taller.Mecanico.EntitiesDTO.DTO;
+﻿using EntitiesDTO.DTO;
 
 namespace Taller.Mecanico.Logic.Interfaces
 {
@@ -6,5 +6,6 @@ namespace Taller.Mecanico.Logic.Interfaces
     {
         public VehiculoDTO Get(int id);
         public IEnumerable<VehiculoDTO> GetAll();
+        public bool Create(VehiculoDTO entity);
     }
 }

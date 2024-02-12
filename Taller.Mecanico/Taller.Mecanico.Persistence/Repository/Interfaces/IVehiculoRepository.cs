@@ -1,13 +1,13 @@
-﻿using Taller.Mecanico.EntitiesDTO.DTO;
+﻿using EntitiesDTO.DTO;
 
 namespace Taller.Mecanico.Persistence.Repository.Interfaces
 {
     public interface IVehiculoRepository
     {
-        void Create(VehiculoDTO vehiculo);
-        void Delete(int id);
+        bool Create(VehiculoDTO vehiculo);
+        bool Delete(int id);
         public VehiculoDTO Get(int id);
         public IEnumerable<VehiculoDTO> GetAll();
-        void Update(VehiculoDTO vehiculo);
+        bool Update(VehiculoDTO vehiculo);
     }
 }

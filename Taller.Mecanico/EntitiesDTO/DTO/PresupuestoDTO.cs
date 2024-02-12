@@ -1,4 +1,4 @@
-﻿namespace Taller.Mecanico.EntitiesDTO.DTO
+﻿namespace EntitiesDTO.DTO
 {
     public class PresupuestoDTO
     {

@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
-using Taller.Mecanico.EntitiesDTO.DTO;
+using EntitiesDTO.DTO;
 using Taller.Mecanico.Persistence.Common;
 using Taller.Mecanico.Persistence.Repository.Interfaces;
 
@@ -18,7 +18,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             this._transaction = transaction;
         }
 
-        public void Create(VehiculoDTO vehiculo)
+        public bool Create(VehiculoDTO vehiculo)
         {
             /* var queryDomicilio = "sp_insert_update_Domicilio";
                     using (SqlCommand cmdInsDomicilio = new SqlCommand(queryDomicilio, con))
@@ -62,16 +62,19 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
                 command.ExecuteScalar();
                 _transaction.Commit();
+
+                return true;
             }
             catch (Exception ex)
             {
                 _transaction.Rollback();
+                return false;
                 throw new Exception(ex.Message);
             }
 
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -119,7 +122,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             return vehiculoList;
 
         }
-        public void Update(VehiculoDTO vehiculo)
+        public bool Update(VehiculoDTO vehiculo)
         {
             throw new NotImplementedException();
         }

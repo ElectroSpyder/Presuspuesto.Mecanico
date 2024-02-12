@@ -1,24 +1,23 @@
-﻿namespace EntitiesDTO.DTO
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EntitiesDTO.DTO
 {
-    public enum Tipo
+    public class AutomovilDTO
     {
-        compacto, sedan, monovolumen, utilitario, lujo
-    }
-    public class VehiculoDTO
-    {
+        //heredadas
         public int Id { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
         public string Patente { get; set; }
         public PresupuestoDTO Presupuesto { get; set; }
-        public int PresupuestoId { get; set; } = 0;
-
+        public int PresupuestoId { get; set; }
+        //propias
         public string? Descripcion { get; set; }
         public Tipo Tipo { get; set; }
         public int CantidadPuertas { get; set; }
-
-        public string? Cilindrada { get; set; }
-
-        public string TipoVehiculo {get; set; }
     }
 }

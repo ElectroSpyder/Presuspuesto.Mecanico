@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Taller.Mecanico.EntitiesDTO.DTO;
+﻿using EntitiesDTO.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Taller.Mecanico.Logic.Interfaces;
 
 namespace Taller.Mecanico.UI.Controllers
