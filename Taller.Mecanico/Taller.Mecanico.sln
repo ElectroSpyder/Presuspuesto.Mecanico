@@ -25,7 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DTO", "DTO", "{469A96A1-A6D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntitiesDTO", "EntitiesDTO\EntitiesDTO.csproj", "{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Mecanico.API", "Taller.Mecanico.API\Taller.Mecanico.API.csproj", "{7CF98499-60E7-4FF9-9566-61928CEE4F8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taller.Mecanico.API", "Taller.Mecanico.API\Taller.Mecanico.API.csproj", "{7CF98499-60E7-4FF9-9566-61928CEE4F8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.MEcanico.Console", "Taller.MEcanico.Console\Taller.MEcanico.Console.csproj", "{9764AE12-18B3-40ED-ABF2-A809F52FDDF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CF98499-60E7-4FF9-9566-61928CEE4F8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9764AE12-18B3-40ED-ABF2-A809F52FDDF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9764AE12-18B3-40ED-ABF2-A809F52FDDF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9764AE12-18B3-40ED-ABF2-A809F52FDDF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9764AE12-18B3-40ED-ABF2-A809F52FDDF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{D1619699-66C7-4B5B-AC84-FE38C1F22813} = {3973C780-7EC7-471F-BEE5-B9EA906A3B76}
 		{B78C39CA-E05E-41B4-A38D-25F0DFE9E7D8} = {469A96A1-A6D5-401D-9BE4-7CBC6D467295}
 		{7CF98499-60E7-4FF9-9566-61928CEE4F8B} = {3973C780-7EC7-471F-BEE5-B9EA906A3B76}
+		{9764AE12-18B3-40ED-ABF2-A809F52FDDF3} = {3973C780-7EC7-471F-BEE5-B9EA906A3B76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {491CBB46-5C88-42BA-B025-71CBF59D148A}

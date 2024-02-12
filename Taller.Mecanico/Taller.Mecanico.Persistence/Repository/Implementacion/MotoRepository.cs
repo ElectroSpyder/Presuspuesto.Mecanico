@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Taller.Mecanico.Models.Entities;
 using Taller.Mecanico.Persistence.Common;
 using Taller.Mecanico.Persistence.Repository.Interfaces;

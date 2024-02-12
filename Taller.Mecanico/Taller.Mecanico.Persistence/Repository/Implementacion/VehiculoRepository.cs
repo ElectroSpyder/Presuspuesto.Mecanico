@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Taller.Mecanico.EntitiesDTO.DTO;
 using Taller.Mecanico.Persistence.Common;
 using Taller.Mecanico.Persistence.Repository.Interfaces;
@@ -98,28 +98,33 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
         public IEnumerable<VehiculoDTO> GetAll()
         {
-            List<VehiculoDTO> vehiculoList = new List<VehiculoDTO>();
-            var comman = CreateCommand(StringObjects.GetAutomovil);
+            List<VehiculoDTO> vehiculoList = [];
+            var comman = CreateCommand(StringObjects.GetAllVehiculos);
+            DataTable dataTable = new();
 
-            using (var reader = comman.ExecuteReader())
-            {
-                SqlDataAdapter da1 = new SqlDataAdapter(comman);
-                DataTable dt1 = new DataTable();
-
-                da1.Fill(dt1);
-
-                if (dt1.Rows.Count > 0)
-                {
-                    foreach (DataRow item in dt1.Rows)
-                    {
-                        VehiculoDTO grupo = MapToVehiculo(item);
-                        vehiculoList.Add(grupo);
-                    }
-                }
+            using (SqlDataAdapter adapter = new(comman))
+            {                
+                adapter.Fill(dataTable);                
             }
+
+            if(dataTable.Rows.Count > 0)
+            {
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    VehiculoDTO grupo = MapToVehiculo(row);
+                    vehiculoList.Add(grupo);
+                }                
+            }
+           
             return vehiculoList;
 
         }
+        public void Update(VehiculoDTO vehiculo)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region private Method
 
         private static VehiculoDTO MapToVehiculo(DataRow reader)
         {
@@ -147,9 +152,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
         }
 
-        public void Update(VehiculoDTO vehiculo)
-        {
-            throw new NotImplementedException();
-        }
+
+        #endregion
     }
 }

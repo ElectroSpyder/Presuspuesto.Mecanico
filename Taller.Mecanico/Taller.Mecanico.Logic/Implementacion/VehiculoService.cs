@@ -7,7 +7,7 @@ namespace Taller.Mecanico.Logic.Implementacion
     public class VehiculoService : IVehiculoService
     {
         private readonly IUnitOfWork _unitOfOfWork;
-        public VehiculoService( IUnitOfWork unitOfWork)
+        public VehiculoService(IUnitOfWork unitOfWork)
         {
             _unitOfOfWork = unitOfWork;
         }

@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Taller.Mecanico.Persistence.Common;
 using Taller.Mecanico.Persistence.UnitOfWork.Interfaces;
 
@@ -12,12 +12,20 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
 
         public UnitOfWorkAdapter()
         {
-            _context = new SqlConnection(StringObjects.ConnectionString);
-            _context.Open();
+            try
+            {
+                _context = new SqlConnection(StringObjects.ConnectionString);
+                if (_context.State == System.Data.ConnectionState.Closed)
+                    _context.Open();
 
-            _transaction = _context.BeginTransaction();
+                _transaction = _context.BeginTransaction();
 
-            Repositories = new UnitOfWorkRepository(_context, _transaction);
+                Repositories = new UnitOfWorkRepository(_context, _transaction);
+            }
+            catch (Exception ex)
+            {                
+                throw new Exception(ex.Message);
+            }
         }
         public void Dispose()
         {
