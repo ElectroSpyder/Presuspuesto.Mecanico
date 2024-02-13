@@ -42,7 +42,7 @@ namespace Taller.Mecanico.API
                     Patente = automovilDTO.Patente,
                     Cilindrada = string.Empty,
                     Tipo = automovilDTO.Tipo,
-                    TipoVehiculo = "Auto"
+                    TipoVehiculo = automovilDTO.TipoVehiculo
                 };
             }
             catch (Exception ex)

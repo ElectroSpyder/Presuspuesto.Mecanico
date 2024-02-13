@@ -18,58 +18,37 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             this._transaction = transaction;
         }
 
-        public bool Create(VehiculoDTO vehiculo)
+        public decimal Create(VehiculoDTO vehiculo)
         {
-            /* var queryDomicilio = "sp_insert_update_Domicilio";
-                    using (SqlCommand cmdInsDomicilio = new SqlCommand(queryDomicilio, con))
-                    {
-
-                        cmdInsDomicilio.CommandType = CommandType.StoredProcedure;
-                        cmdInsDomicilio.CommandText = queryDomicilio;
-                        cmdInsDomicilio.Parameters.Add(new SqlParameter("@insd_ficha", inscViewModel.InsFicha));
-            decimal InscriptoId = 0;
-            var objetoId = new object();
-
-            @Marca , @Modelo , @Patente , @TipoVehiculo , @Descripcion " +
-            " , @Tipo , @CantidadPuertas 
-
-            @Marca nvarchar(50),
-    @Modelo nvarchar(50),
-	@Patente nvarchar(50),
-	@PresupuestoId int,
-	@TipoVehiculo nchar(13),
-	@Descripcion nvarchar(50),
-	@Tipo int,
-	@CantidadPuertas int,
-	@Cilindrada nvarchar(50)
-
-
-            */
+            
             try
-            {
-                var command = CreateCommand(StringObjects.CreateVehiculo);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = StringObjects.CreateVehiculo;
+            {               
+                using var command = CreateCommand(StringObjects.CreateVehiculo);
+                
+                command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.Add(new SqlParameter("@Marca", vehiculo.Marca));
                 command.Parameters.Add(new SqlParameter("@Modelo", vehiculo.Modelo));
                 command.Parameters.Add(new SqlParameter("@Patente", vehiculo.Patente));
+                command.Parameters.Add(new SqlParameter("@PresupuestoId", vehiculo.PresupuestoId == 0 ? DBNull.Value : vehiculo.PresupuestoId));
                 command.Parameters.Add(new SqlParameter("@TipoVehiculo", vehiculo.TipoVehiculo));
                 command.Parameters.Add(new SqlParameter("@Descripcion", vehiculo.Descripcion));
                 command.Parameters.Add(new SqlParameter("@Tipo", vehiculo.Tipo));
                 command.Parameters.Add(new SqlParameter("@CantidadPuertas", vehiculo.CantidadPuertas));
                 command.Parameters.Add(new SqlParameter("@Cilindrada", vehiculo.Cilindrada));
 
-                command.ExecuteScalar();
-                _transaction.Commit();
+                var result = ExecuteCommand(command);
+                
+                return result != null ? (decimal)result : 0;
 
-                return true;
-            }
+            }            
             catch (Exception ex)
             {
-                _transaction.Rollback();
-                return false;
                 throw new Exception(ex.Message);
+            }
+            finally
+            {
+                _transaction.Dispose();
             }
 
         }

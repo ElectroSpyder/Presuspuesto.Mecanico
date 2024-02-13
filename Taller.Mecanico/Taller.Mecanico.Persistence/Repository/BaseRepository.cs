@@ -11,5 +11,14 @@ namespace Taller.Mecanico.Persistence.Repository
         {
             return new SqlCommand(query, _context, _transaction);
         }
+
+        protected object ExecuteCommand(SqlCommand command) {
+           var result = command.ExecuteScalar();
+            if(result != null)
+                _transaction.Commit();
+                
+            return result;
+            
+        }
     }
 }

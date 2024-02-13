@@ -10,8 +10,10 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
         public UnitOfWorkRepository(SqlConnection context, SqlTransaction _transaction)
         {
             vehiculolRepository = new VehiculoRepository(context, _transaction);
+            desperfectoRepository = new DesperfectoRepository(context, _transaction);
         }
 
         public IVehiculoRepository vehiculolRepository { get; }
+        public IDesperfectoRepository desperfectoRepository { get; }
     }
 }

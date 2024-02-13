@@ -16,6 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 //builder.Services.AddTransient<IVehiculoRepository, VehiculoRepository>();
 builder.Services.AddTransient<IVehiculoService, VehiculoService>();
+builder.Services.AddTransient<IDesperfectoService, DesperfectoService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

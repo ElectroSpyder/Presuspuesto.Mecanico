@@ -6,15 +6,15 @@ namespace Taller.Mecanico.Logic.Implementacion
 {
     public class VehiculoService : IVehiculoService
     {
-        private readonly IUnitOfWork _unitOfOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public VehiculoService(IUnitOfWork unitOfWork)
         {
-            _unitOfOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
-        public bool Create(VehiculoDTO entity)
+        public decimal Create(VehiculoDTO entity)
         {
-            using (var context = _unitOfOfWork.Create())
+            using (var context = _unitOfWork.Create())
             {
                 return context.Repositories.vehiculolRepository.Create(entity);
             }
@@ -23,7 +23,7 @@ namespace Taller.Mecanico.Logic.Implementacion
         {
             var vehiculo = new VehiculoDTO();
 
-            using(var context = _unitOfOfWork.Create())
+            using(var context = _unitOfWork.Create())
             {
                 vehiculo = context.Repositories.vehiculolRepository.Get(id);                
             }
@@ -33,7 +33,7 @@ namespace Taller.Mecanico.Logic.Implementacion
         public IEnumerable<VehiculoDTO> GetAll()
         {
             var vehiculoList = new List<VehiculoDTO>();
-            using (var context = _unitOfOfWork.Create())
+            using (var context = _unitOfWork.Create())
             {
                 vehiculoList = context.Repositories.vehiculolRepository.GetAll().ToList();
             }

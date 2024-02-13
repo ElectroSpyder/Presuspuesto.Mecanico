@@ -45,7 +45,7 @@ namespace Taller.Mecanico.API.Controllers
         {
             var result = _service.Create(Auxiliar.MapAutomovilToVehiculo(automovil));
             await Task.Delay(100).ConfigureAwait(false);
-            return Ok(result);
+            return Ok(true);
         }
 
     }

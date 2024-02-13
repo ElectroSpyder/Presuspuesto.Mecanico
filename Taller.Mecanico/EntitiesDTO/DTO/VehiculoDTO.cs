@@ -11,7 +11,7 @@
         public string Modelo { get; set; }
         public string Patente { get; set; }
         public PresupuestoDTO Presupuesto { get; set; }
-        public int PresupuestoId { get; set; } = 0;
+        public int PresupuestoId { get; set; } 
 
         public string? Descripcion { get; set; }
         public Tipo Tipo { get; set; }

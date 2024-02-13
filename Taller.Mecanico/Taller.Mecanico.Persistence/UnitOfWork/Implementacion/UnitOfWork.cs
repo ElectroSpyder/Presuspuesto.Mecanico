@@ -9,5 +9,11 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
         {
             return new UnitOfWorkAdapter();
         }
+
+        public void SaveChanges()
+        {
+            var adapter = new UnitOfWorkAdapter();
+            adapter.SaveChanges();
+        }
     }
 }

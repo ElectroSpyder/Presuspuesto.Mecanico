@@ -19,5 +19,6 @@ namespace EntitiesDTO.DTO
         public string? Descripcion { get; set; }
         public Tipo Tipo { get; set; }
         public int CantidadPuertas { get; set; }
+        public string TipoVehiculo { get { return "Auto"; } } 
     }
 }
