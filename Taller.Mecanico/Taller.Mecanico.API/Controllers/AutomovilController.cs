@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EntitiesDTO.DTO;
 using Microsoft.AspNetCore.Mvc;
-using EntitiesDTO.DTO;
 using Taller.Mecanico.Logic.Interfaces;
 
 namespace Taller.Mecanico.API.Controllers
@@ -9,9 +8,9 @@ namespace Taller.Mecanico.API.Controllers
     [Route("[controller]")]
     public class AutomovilController : ControllerBase
     {
-        private readonly IVehiculoService _service;
+        private readonly IAutomovilService _service;
 
-        public AutomovilController(IVehiculoService service)
+        public AutomovilController(IAutomovilService service)
         {
             _service = service;
         }
@@ -21,14 +20,10 @@ namespace Taller.Mecanico.API.Controllers
             try
             {
                 var result = _service.GetAll().ToList();
-                List<AutomovilDTO> automovilList = new List<AutomovilDTO>();
-                foreach (var item in result)
-                {
-                    automovilList.Add(Auxiliar.MapVehiculoToAutomovil(item));
-                }
+                               
                 await Task.Delay(100).ConfigureAwait(false);
 
-                return automovilList;
+                return result;
             }
             catch (Exception ex)
             {
@@ -43,9 +38,9 @@ namespace Taller.Mecanico.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AutomovilDTO>> Create(AutomovilDTO automovil)
         {
-            var result = _service.Create(Auxiliar.MapAutomovilToVehiculo(automovil));
+            var result = _service.Create(automovil);
             await Task.Delay(100).ConfigureAwait(false);
-            return Ok(true);
+            return Ok(result);
         }
 
     }

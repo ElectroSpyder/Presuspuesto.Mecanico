@@ -7,5 +7,6 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Interfaces
     {
         public IVehiculoRepository vehiculolRepository { get; }
         public IDesperfectoRepository desperfectoRepository { get; }
+        public IRepuestoRepository repuestoRepository { get; }
     }
 }

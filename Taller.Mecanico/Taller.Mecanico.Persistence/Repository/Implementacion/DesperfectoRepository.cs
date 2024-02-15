@@ -98,9 +98,9 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 {
                     Id = (int)reader["Id"],
                     Descripcion = reader["Descripcion"] is DBNull ? " " : (string)reader["Descripcion"],
-                    ManoDeObra = (decimal)reader["ManoDeObra"],
-                    Tiempo = (int)reader["Tiempo"],
-                    PresupuestoId = (int)reader["PresupuestoId"]
+                    ManoDeObra = reader["ManoDeObra"] is DBNull ? 0 : (decimal)reader["ManoDeObra"],
+                    Tiempo = reader["Tiempo"] is DBNull ? 0 : (int)reader["Tiempo"],
+                    PresupuestoId = reader["PresupuestoId"] is DBNull ? 0 : (int)reader["PresupuestoId"]
                 };
 
                 return desperfecto;

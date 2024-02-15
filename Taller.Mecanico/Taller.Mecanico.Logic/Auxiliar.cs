@@ -87,5 +87,33 @@ namespace Taller.Mecanico.Logic
                 };
             }catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
+
+        internal static Repuesto MapDtoToRepuesto(RepuestoDTO entity)
+        {
+            try
+            {
+                return new Repuesto
+                {
+                    Id = entity.Id,
+                    Nombre = entity.Nombre,
+                    Precio = entity.Precio
+                };
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+        }
+
+        internal static RepuestoDTO MapRepuestoToDTO(Repuesto repuesto)
+        {
+            try
+            {
+                return new RepuestoDTO
+                {
+                    Id = repuesto.Id,
+                    Nombre = repuesto.Nombre,
+                    Precio = repuesto.Precio
+                };
+            }
+            catch (Exception ex) { throw new Exception(ex.Message, ex); }
+        }
     }
 }
