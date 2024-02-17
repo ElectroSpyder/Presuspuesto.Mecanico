@@ -13,7 +13,7 @@ https://www.programandoamedianoche.com/2009/11/cursores-en-sql-server/
 /*+                                                                                      */
 /*****************************************************************************************/
 
-CREATE or ALTER PROC [dbo].[MassiveCharge] AS
+CREATE  PROC [dbo].[MassiveCharge] AS
 BEGIN
 
 /*+ Creación de la tabla Temporal que contendrá los Repuestos con sus precios*/
@@ -127,23 +127,46 @@ si procede su carga en la tabla definitiva de Repuestos*/
         INSERT INTO #TMP_RESPUESTO VALUES ('B943846621', 37.05)
     END /*+ END INSERT EN LA TEMPORAL DE RESPUESTOS*/
 
-	begin
-		declare 
+	BEGIN
+		DECLARE
 			@Nombre varchar(50),
-			@Precio decimal(18,6)
-		DECLARE cProcesoRepuesto CURSOR LOCAL FORWARD_ONLY FAST_FORWARD SCROLL_LOCKS
-		FOR 
-			SELECT Nombre, Precio FROM #TMP_RESPUESTO
-		OPEN cProcesoRepuesto
-		FETCH NEXT FROM cProcesoRepuesto
-		INTO @Nombre, @Precio
-		WHILE @@FETCH_STATUS = 0
-		BEGIN
-			
+			@Precio decimal(18,6),
+			@UpdatePrecio decimal(18,6),
+			@UpdateNombre varchar(50),
+			@Total decimal(18,6)
 
-		END
-		CLOSE cProcesoRepuesto
-		DEALLOCATE cProcesoRepuesto
+		DECLARE cProcesoRepuesto CURSOR LOCAL FORWARD_ONLY FAST_FORWARD SCROLL_LOCKS
+			FOR 
+				SELECT Nombre, Precio FROM #TMP_RESPUESTO
+
+			DECLARE cUpdateIfExist CURSOR LOCAL FORWARD_ONLY FAST_FORWARD SCROLL_LOCKS
+			FOR 
+				SELECT Nombre, Precio from Repuesto
+
+			OPEN cProcesoRepuesto
+
+			FETCH NEXT FROM cProcesoRepuesto INTO @Nombre, @Precio
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				OPEN cUpdateIfExist 
+				FETCH NEXT FROM cUpdateIfExist INTO @UpdateNombre, @UpdatePrecio
+				WHILE @@FETCH_STATUS = 0
+				BEGIN
+					IF @Nombre = @UpdateNombre
+					BEGIN
+						UPDATE Repuesto SET Precio = @Precio + @UpdatePrecio WHERE Nombre = @Nombre
+					END
+
+					FETCH NEXT FROM cUpdateIfExist INTO @UpdateNombre, @UpdatePrecio
+				END
+				CLOSE cUpdateIfExist
+				DEALLOCATE cUpdateIfExist
+
+				FETCH NEXT FROM cProcesoRepuesto INTO @Nombre, @Precio
+			END
+			CLOSE cProcesoRepuesto
+			DEALLOCATE cProcesoRepuesto
+
 END
 GO
 

@@ -1,0 +1,81 @@
+﻿@model EntitiesDTO.DTO.VehiculoDTO
+
+<p>
+    <h2>Sistema de Inscripción / Actualización</h2>
+</p>
+
+<div style="float:right;">
+    <img id="AjaxLoaderLogin" alt="Enviando ..." style="display:none; width:50px; height:50px;" src="~/image/loader.gif" />
+    <button class="btn btn-outline-danger float-sm-right" id="btnLogin">Ingresar con Usuario y Clave</button>
+</div>
+<div method="post" class="form-inline">
+
+    @Html.AntiForgeryToken()
+    <!--<form>-->
+
+    <form asp-controller="Vehiculo" asp-action="BuscarPatente">
+        <div class="form-row ">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="patenteInput" placeholder="Ingrese Patente" name="patente">
+
+            <div class="form-group mb-2 mr-sm-2 ">
+                <img id="AjaxLoader" alt="Enviando ..." style="display:none; width:50px; height:50px;" src="~/image/loader.gif" />
+                <button id="btnBuscar" class="btn btn-info">
+                    Buscar Vehiculo
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+@section scripts{
+
+     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <style type="text/css">
+        .span3 {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .card-body {
+            padding-bottom: 0rem;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(function () {
+            $("#btnBuscar").click(function (e) {
+
+                var patente = $("#patenteInput").val();
+                $("#AjaxLoader").show("fast");
+
+                if (patente.length > 6) {
+
+                    $("#AjaxLoader").delay(2000).hide("slow");
+
+
+                } else {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    bootbox.alert({
+                        size: "small",
+                        title: "Sistema",
+                        message: "Debes ingresar una patente",
+                        callback: function () {
+                            $("#AjaxLoader").hide("slow");
+                        }
+                    });
+
+                }
+            });
+        });
+
+    </script>
+
+}
+

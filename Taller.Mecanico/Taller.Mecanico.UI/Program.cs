@@ -9,24 +9,27 @@ using Taller.Mecanico.Persistence.UnitOfWork.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<TallerContext>(x => x.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<TallerContext>(x => x.UseSqlServer(connectionString));
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+//builder.Services.AddTransient<IVehiculoRepository, VehiculoRepository>();
 builder.Services.AddTransient<IVehiculoService, VehiculoService>();
+builder.Services.AddTransient<IDesperfectoService, DesperfectoService>();
+builder.Services.AddTransient<IRepuestoService, RepuestoService>();
+builder.Services.AddTransient<IAutomovilService, AutomovilService>();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddMemoryCache();
 
-/*
+builder.Services.AddSession();
+builder.Services.AddMvc();
 
-  services.AddDbContext<dbActuContext>(cfg =>
-            {
-                //cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));   Produccion
-                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));     //  Base Test 
-            });
- */
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -40,12 +43,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Vehiculo}/{action=Index}/{id?}");
 
 app.Run();
 

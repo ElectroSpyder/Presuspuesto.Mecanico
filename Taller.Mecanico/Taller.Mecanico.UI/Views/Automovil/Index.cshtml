@@ -1,0 +1,41 @@
+﻿@model EntitiesDTO.DTO.AutomovilDTO
+
+
+<div>
+    <div class="form-group card border-info">
+        <h3 class="card-header text-light bg-info"> Automovil</h3>
+        <p class=" text-light bg-info">Datos del Automovil</p>
+        <div class="form-row card-body">
+            <div class="form-group col-md-6">
+                <label for="inputPatente">Patente</label>
+                <input type="text" class="form-control" id="inputPatente" placeholder=" Patente " value="@Model.Patente" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputModelo">Modelo</label>
+                <input type="text" class="form-control" id="inputModelo" placeholder=" Modelo " value="@Model.Modelo" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputMarca">Marca</label>
+                <input type="text" class="form-control" id="inputMarca" placeholder=" Marca " value="@Model.Marca" disabled>
+            </div>
+
+           @*  <div class="form-group col-md-6">
+                @Html.DropDownListFor(x => Model.InsTipflia, Model.TipoFamiliaList ?? new List<SelectListItem>(), "----Selecciona Estado Civil----", htmlAttributes: new { @class = "form-control", id = "ddTipoFamiliaId" })
+            </div>
+ 
+            <div class="form-inline col-md-6" style="width:auto; margin-bottom:10px;">
+
+
+                Cuit / Cuil
+                <input id="inputCuitUno" type="number" class="form-control" style="width:16%; margin-left:4px;" value="@Model.CuitCuilUno"> -
+                <input type="text" class="form-control" id="inputCuitDos" placeholder="D.N.I." value="@Model.InsNumdoc" disabled style="width:40%"> -
+
+                <input id="inputCuitTres" type="number" class="form-control" style="width:16%" value="@Model.CuitCuilDos">
+
+
+
+            </div>*@
+
+        </div>
+    </div>
+</div>
