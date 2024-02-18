@@ -5,15 +5,14 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private  IUnitOfWorkAdapter? _unitOfWorkAdapter;
         public IUnitOfWorkAdapter Create()
         {
-            return new UnitOfWorkAdapter();
+            _unitOfWorkAdapter = new UnitOfWorkAdapter();
+            return _unitOfWorkAdapter;
         }
 
-        public void SaveChanges()
-        {
-            var adapter = new UnitOfWorkAdapter();
-            adapter.SaveChanges();
-        }
+        //public void SaveChanges() => _unitOfWorkAdapter.SaveChanges();
+        //public void Dispose() => _unitOfWorkAdapter.Dispose();
     }
 }

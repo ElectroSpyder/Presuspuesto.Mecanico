@@ -30,7 +30,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Nombre", repuesto.Nombre));
                 command.Parameters.Add(new SqlParameter("@Precio", repuesto.Precio));
 
-                var result = ExecuteCommand(command);
+                var result = ExecuteCommandScalar(command);
 
                 return result != null ? (decimal)result : 0;
 
@@ -38,58 +38,105 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }
-            finally
-            {
-                _transaction.Dispose();
-            }
+            }           
         }
 
-        public bool Delete(int id)
+        public decimal Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var command = CreateCommand(StringObjects.DeleteRepuesto);
+                command.Parameters.Add(new SqlParameter("id", id));
+                command.CommandType = CommandType.StoredProcedure;
+
+                var result = command.ExecuteScalar();
+
+                return result != null ? (decimal)result : 0;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public Repuesto Get(int id)
         {
-            var repuesto = new Repuesto();
-            var command = CreateCommand(StringObjects.GetRepuesto);
-            command.Parameters.AddWithValue("@id", id);
+            try
+            {
+                var repuesto = new Repuesto();
+                using var command = CreateCommand(StringObjects.GetRepuesto);
+                command.Parameters.AddWithValue("@id", id);
 
-            using var reader = command.ExecuteReader();
+                using var reader = command.ExecuteReader();
 
-            reader.Read();
+                reader.Read();
 
-            repuesto.Id = ReaderHelper.ConvertFromReader<int>(reader["Id"]);
-            repuesto.Nombre = ReaderHelper.ConvertFromReader<string>(reader["Nombre"]);
-            repuesto.Precio = ReaderHelper.ConvertFromReader<decimal>(reader["Precio"]);
+                repuesto.Id = ReaderHelper.ConvertFromReader<int>(reader["Id"]);
+                repuesto.Nombre = ReaderHelper.ConvertFromReader<string>(reader["Nombre"]);
+                repuesto.Precio = ReaderHelper.ConvertFromReader<decimal>(reader["Precio"]);
 
-            return repuesto;
+                return repuesto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public IEnumerable<Repuesto> GetAll()
         {
-            List<Repuesto> repuestoList = [];
-            var comman = CreateCommand(StringObjects.GetAllRepuesto);
-            DataTable dataTable = new();
-
-            using (SqlDataAdapter adapter = new(comman))
+            try
             {
-                adapter.Fill(dataTable);
-            }
+                List<Repuesto> repuestoList = [];
+                using var comman = CreateCommand(StringObjects.GetAllRepuesto);
+                DataTable dataTable = new();
 
-            if (dataTable.Rows.Count > 0)
-            {
-                foreach (DataRow row in dataTable.Rows)
+                using (SqlDataAdapter adapter = new(comman))
                 {
-                    Repuesto grupo = MapToRepuesto(row);
-                    repuestoList.Add(grupo);
+                    adapter.Fill(dataTable);
                 }
-            }
 
-            return repuestoList;
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        Repuesto grupo = MapToRepuesto(row);
+                        repuestoList.Add(grupo);
+                    }
+                }
+
+                return repuestoList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }            
         }
 
+        public decimal Update(Repuesto repuesto)
+        {
+            try
+            {
+                using var command = CreateCommand(StringObjects.UpdateRepuesto);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@Nombre", repuesto.Nombre));
+                command.Parameters.Add(new SqlParameter("@Precio", repuesto.Precio));
+
+                var result = ExecuteCommandScalar(command);
+
+                return result != null ? (decimal)result : 0;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }           
+        }
+
+        #region Privados
         private Repuesto MapToRepuesto(DataRow reader)
         {
             try
@@ -108,10 +155,6 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 throw new Exception(ex.Message);
             }
         }
-
-        public bool Update(Repuesto repuesto)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

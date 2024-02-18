@@ -19,6 +19,7 @@ builder.Services.AddTransient<IVehiculoService, VehiculoService>();
 builder.Services.AddTransient<IDesperfectoService, DesperfectoService>();
 builder.Services.AddTransient<IRepuestoService, RepuestoService>();
 builder.Services.AddTransient<IAutomovilService, AutomovilService>();
+builder.Services.AddTransient<IPresupuestoService, PresupuestoService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -49,7 +50,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Vehiculo}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

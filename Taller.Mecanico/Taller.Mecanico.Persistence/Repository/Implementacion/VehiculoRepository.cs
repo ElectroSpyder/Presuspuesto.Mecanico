@@ -37,7 +37,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@CantidadPuertas", vehiculo.CantidadPuertas));
                 command.Parameters.Add(new SqlParameter("@Cilindrada", vehiculo.Cilindrada));
 
-                var result = ExecuteCommand(command);
+                var result = ExecuteCommandScalar(command);
                 
                 return result != null ? (decimal)result : 0;
 
@@ -45,65 +45,108 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }
-            finally
-            {
-                _transaction.Dispose();
-            }
+            }            
 
         }
 
-        public bool Delete(int id)
+        public decimal Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var command = CreateCommand(StringObjects.DeleteVehiculo);
+                command.Parameters.Add(new SqlParameter("id", id));
+                command.CommandType = CommandType.StoredProcedure;
+
+                var result = command.ExecuteScalar();
+
+                return result != null ? (decimal)result : 0;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
+
         }
 
         public VehiculoDTO Get(int id)
         {
-            var vehiculo = new VehiculoDTO();
-            var command = CreateCommand(StringObjects.GetAutomovil);
-            command.Parameters.AddWithValue("@id", id);
-
-            using (var reader = command.ExecuteReader())
+            try
             {
-                reader.Read();
+                var vehiculo = new VehiculoDTO();
+                using var command = CreateCommand(StringObjects.GetAutomovil);
+                command.Parameters.AddWithValue("@id", id);
 
-                vehiculo.Id = ReaderHelper.ConvertFromReader<int>(reader["Id"]);
-                vehiculo.Tipo = ReaderHelper.ConvertFromReader<EntitiesDTO.DTO.Tipo>(reader["Tipo"]);
-                vehiculo.Descripcion = ReaderHelper.ConvertFromReader<string>(reader["Description"]);
-                vehiculo.CantidadPuertas = ReaderHelper.ConvertFromReader<int>(reader["CantidadPuertas"]);
+                using (var reader = command.ExecuteReader())
+                {
+                    reader.Read();
 
+                    vehiculo.Id = ReaderHelper.ConvertFromReader<int>(reader["Id"]);
+                    vehiculo.Tipo = ReaderHelper.ConvertFromReader<EntitiesDTO.DTO.Tipo>(reader["Tipo"]);
+                    vehiculo.Descripcion = ReaderHelper.ConvertFromReader<string>(reader["Description"]);
+                    vehiculo.CantidadPuertas = ReaderHelper.ConvertFromReader<int>(reader["CantidadPuertas"]);
+
+                }
+
+                return vehiculo;
             }
+            catch (Exception ex)
+            {
 
-            return vehiculo;
+                throw new Exception(ex.Message);
+            }           
         }
 
         public IEnumerable<VehiculoDTO> GetAll()
         {
-            List<VehiculoDTO> vehiculoList = [];
-            var comman = CreateCommand(StringObjects.GetAllVehiculos);
-            DataTable dataTable = new();
-
-            using (SqlDataAdapter adapter = new(comman))
-            {                
-                adapter.Fill(dataTable);                
-            }
-
-            if(dataTable.Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in dataTable.Rows)
+                List<VehiculoDTO> vehiculoList = [];
+                using var comman = CreateCommand(StringObjects.GetAllVehiculos);
+                DataTable dataTable = new();
+
+                using (SqlDataAdapter adapter = new(comman))
                 {
-                    VehiculoDTO grupo = MapToVehiculo(row);
-                    vehiculoList.Add(grupo);
-                }                
+                    adapter.Fill(dataTable);
+                }
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        VehiculoDTO grupo = MapToVehiculo(row);
+                        vehiculoList.Add(grupo);
+                    }
+                }
+
+                return vehiculoList;
             }
-           
-            return vehiculoList;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }            
 
         }
-        public bool Update(VehiculoDTO vehiculo)
+        public decimal Update(VehiculoDTO vehiculo)
         {
-            throw new NotImplementedException();
+            using var command = CreateCommand(StringObjects.UpdateVehiculo);
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add(new SqlParameter("@Marca", vehiculo.Marca));
+            command.Parameters.Add(new SqlParameter("@Modelo", vehiculo.Modelo));
+            command.Parameters.Add(new SqlParameter("@Patente", vehiculo.Patente));
+            command.Parameters.Add(new SqlParameter("@PresupuestoId", vehiculo.PresupuestoId == 0 ? DBNull.Value : vehiculo.PresupuestoId));
+            command.Parameters.Add(new SqlParameter("@TipoVehiculo", vehiculo.TipoVehiculo));
+            command.Parameters.Add(new SqlParameter("@Descripcion", vehiculo.Descripcion));
+            command.Parameters.Add(new SqlParameter("@Tipo", vehiculo.Tipo));
+            command.Parameters.Add(new SqlParameter("@CantidadPuertas", vehiculo.CantidadPuertas));
+            command.Parameters.Add(new SqlParameter("@Cilindrada", vehiculo.Cilindrada));
+
+            var result = ExecuteCommandScalar(command);
+
+            return result != null ? (decimal)result : 0 ;
         }
 
         #region private Method

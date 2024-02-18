@@ -1,2 +1,165 @@
-﻿
+﻿@model EntitiesDTO.DTO.Request
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>
+    <h2>Taller Mecánico - Carga de Presupuesto</h2>
+</p>
 
+<div method="post" class="form-inline">
+
+    @Html.AntiForgeryToken()
+    <!--<form>-->
+
+    <form asp-controller="Home" asp-action="BuscarPatente">
+        <div class="form-row col-md-6">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="patenteInput" placeholder="Ingrese Patente" name="patente">
+
+            <div class="form-group mb-2 mr-sm-2 ">
+                <img id="AjaxLoader" alt="Enviando ..." style="display:none; width:50px; height:50px;" src="~/image/loader.gif" />
+                <button id="btnBuscar" class="btn btn-info">
+                    Buscar
+                </button>
+            </div>
+            <div class="form-group mb-2 mr-sm-2 ">
+                <button id="btnCarga" class="btn btn-danger " style="display: none; visibility: visible;">Alta de Vehículo</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="modal fade" id="altaModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alta de vehículo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form >
+                <div class="modal-body card">
+
+                    <div class="form-group col-md-6">
+                        <label for="inputSelectTipoVehiculo"></label>
+                        <select id="inputSelectTipoVehiculo">
+                            <option value="Auto">Auto</option>
+                            <option value="Moto">Moto</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPatente">Patente</label>
+                        <input type="text" class="form-control" id="inputPatente" placeholder=" Patente " value="@Model.VehiculoDTO.Patente" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputModelo">Modelo</label>
+                        <input type="text" class="form-control" id="inputModelo" placeholder=" Modelo " value="@Model.VehiculoDTO.Modelo" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputMarca">Marca</label>
+                        <input type="text" class="form-control" id="inputMarca" placeholder=" Marca " value="@Model.VehiculoDTO.Marca" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputDescripcion">Descripción</label>
+                        <input type="text" class="form-control" id="inputDescripcion" placeholder=" Descripcion " value="@Model.VehiculoDTO.Descripcion" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCantidadPuertas">Cantidad de Puertas</label>
+                        <input type="text" class="form-control" id="inputCantidadPuertas" placeholder=" Cantidad de Puertas " value="@Model.VehiculoDTO.CantidadPuertas">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCilindrada">Cilindrada</label>
+                        <input type="text" class="form-control" id="inputCilindrada" placeholder=" Cilindrada " value="@Model.VehiculoDTO.Cilindrada" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAlta" type="submit" class="btn btn-primary">Iniciar</button>
+                    <button type="button" id="btnHideModal" class="btn btn-outline-info">
+                        Cerrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <style type="text/css">
+        .span3 {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .card-body {
+            padding-bottom: 0rem;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(function () {
+            $("#btnBuscar").click(function (e) {
+
+                var patente = $("#patenteInput").val();
+                // $("#AjaxLoader").show("fast");
+
+                if (patente.length < 2) 
+                {
+                    alert("Patente Inexistente");
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $('#btnCarga').show(); 
+                }
+            });
+        });
+
+        $(function () {
+            $("#btnCarga").click(function () {
+                
+                $("#altaModal").modal('show');
+
+            });
+        });
+
+        $(function () {
+            $("#btnAlta").click(function (e) {
+
+                e.preventDefault();
+
+                var vehiculoDTO = {
+                    Patente: $("#inputPatente"),
+                    Modelo: $("#inputModelo"),
+                    Marca: $("#inputMarca"),
+                    Descripcion: $("#inputDescripcion"),
+                    Tipo: $("#inputSelectTipoVehiculo"),
+                    CantidadPuertas: $("#inputCantidadPuertas"),
+                    Cilindrada: $("#inputCilindrada"),
+                    TipoVehiculo: $("#inputSelectTipoVehiculo")
+                };
+                $.ajax({
+                url: '@Url.Action("CargarVehiculo","Home")',
+                data: vehiculoDTO,
+                type: "get",
+                timeout: 1500
+                })
+                    .done(function (result) {
+                        console.log(result);
+                        $("#altaModal").modal('hide');
+                    })
+
+            });
+        });
+
+        $(function () {
+            $("#inputSelectTipoVehiculo")
+        });
+    </script>
+
+}

@@ -26,7 +26,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Tiempo", desperfecto.Tiempo));
                 command.Parameters.Add(new SqlParameter("@PresupuestoId", desperfecto.PresupuestoId == 0 ? DBNull.Value : desperfecto.PresupuestoId));
                 
-                var result = ExecuteCommand(command);
+                var result = ExecuteCommandScalar(command);
 
                 return result != null ? (decimal)result : 0;
 
@@ -35,32 +35,40 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             {
                 throw new Exception(ex.Message);
             }
-            finally
-            {
-                _transaction.Dispose();
-            }
+            
         }
 
-        public void Delete(int id)
+        public decimal Delete(int id)
         {
-            throw new NotImplementedException();
+            using var command = CreateCommand(StringObjects.DeleteDespertecto);
+            command.Parameters.Add(new SqlParameter("id", id));
+            command.CommandType = CommandType.StoredProcedure;
+
+            var result = ExecuteCommandScalar(command);
+
+            return result != null ? (decimal)result : 0;
         }
 
         public Desperfecto Get(int id)
         {
             var desperfecto = new Desperfecto();
-            var command = CreateCommand(StringObjects.GetAutomovil);
+            using var command = CreateCommand(StringObjects.GetAutomovil);
             command.Parameters.AddWithValue("@id", id);
+            
+            DataTable dataTable = new ();
+            var adapter = ExecuteCommandAdapter(command);
+            adapter.Fill(dataTable);
 
-            using (var reader = command.ExecuteReader())
+            if(dataTable.Rows.Count > 0)
             {
-                reader.Read();
-
-                desperfecto.Id = ReaderHelper.ConvertFromReader<int>(reader["Id"]);
-                desperfecto.Descripcion = ReaderHelper.ConvertFromReader<string>(reader["Descripcion"]);
-                desperfecto.ManoDeObra = ReaderHelper.ConvertFromReader<decimal>(reader["ManoDeObra"]);
-                desperfecto.Tiempo = ReaderHelper.ConvertFromReader<int>(reader["Tiempo"]);
-                desperfecto.PresupuestoId = ReaderHelper.ConvertFromReader<int>(reader["PresupuestoId"]);
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    desperfecto.Id = ReaderHelper.ConvertFromReader<int>(row["Id"]);
+                    desperfecto.Descripcion = ReaderHelper.ConvertFromReader<string>(row["Descripcion"]);
+                    desperfecto.ManoDeObra = ReaderHelper.ConvertFromReader<decimal>(row["ManoDeObra"]);
+                    desperfecto.Tiempo = ReaderHelper.ConvertFromReader<int>(row["Tiempo"]);
+                    desperfecto.PresupuestoId = ReaderHelper.ConvertFromReader<int>(row["PresupuestoId"]);
+                }
             }
 
             return desperfecto;
@@ -68,28 +76,60 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
         public IEnumerable<Desperfecto> GetAll()
         {
-
-            List<Desperfecto> desperfectoList = [];
-            var comman = CreateCommand(StringObjects.GetAllDesperfectos);
-            DataTable dataTable = new();
-
-            using (SqlDataAdapter adapter = new(comman))
+            try
             {
-                adapter.Fill(dataTable);
-            }
+                List<Desperfecto> desperfectoList = [];
+                using var comman = CreateCommand(StringObjects.GetAllDesperfectos);
+                DataTable dataTable = new();
 
-            if (dataTable.Rows.Count > 0)
-            {
-                foreach (DataRow row in dataTable.Rows)
+                using var adapter = ExecuteCommandAdapter(comman);
                 {
-                    Desperfecto grupo = MapToDesperfecto(row);
-                    desperfectoList.Add(grupo);
+                    adapter.Fill(dataTable);
                 }
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        Desperfecto grupo = MapToDesperfecto(row);
+                        desperfectoList.Add(grupo);
+                    }
+                }
+
+                return desperfectoList;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
             }
 
-            return desperfectoList;
         }
 
+        public decimal Update(Desperfecto desperfecto)
+        {
+            try
+            {
+                using var command = CreateCommand(StringObjects.UpdateDesperfecto);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@Descripcion", desperfecto.Descripcion));
+                command.Parameters.Add(new SqlParameter("@ManoDeObra", desperfecto.ManoDeObra));
+                command.Parameters.Add(new SqlParameter("@Tiempo", desperfecto.Tiempo));
+                command.Parameters.Add(new SqlParameter("@PresupuestoId", desperfecto.PresupuestoId == 0 ? DBNull.Value : desperfecto.PresupuestoId));
+
+                var result = ExecuteCommandScalar(command);
+
+                return result != null ? (decimal)result : 0;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }           
+        }
+
+        #region Privado
         private Desperfecto MapToDesperfecto(DataRow reader)
         {
             try
@@ -111,10 +151,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             }
 
         }
-
-        public void Update(Desperfecto desperfecto)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
+       
     }
 }

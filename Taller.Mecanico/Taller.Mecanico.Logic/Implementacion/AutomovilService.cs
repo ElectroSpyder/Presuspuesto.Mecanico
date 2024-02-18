@@ -15,11 +15,23 @@ namespace Taller.Mecanico.Logic.Implementacion
 
         public decimal Create(AutomovilDTO entity)
         {
-            var vehiculoDTO = Auxiliar.MapAutomovilToVehiculo(entity);
-            using (var context = _unitOfWork.Create())
+            try
             {
-                return context.Repositories.vehiculolRepository.Create(vehiculoDTO);
+                var createVehiculo = 0m;
+                var vehiculoDTO = Auxiliar.MapAutomovilToVehiculo(entity);
+                using (var context = _unitOfWork.Create())
+                {
+                    createVehiculo = context.Repositories.vehiculolRepository.Create(vehiculoDTO);
+                    if (createVehiculo < 1) context.Dispose();
+                    //context.SaveChanges();
+                }
+                return createVehiculo;
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public AutomovilDTO Get(int id)
@@ -50,6 +62,7 @@ namespace Taller.Mecanico.Logic.Implementacion
                 {
                     automovilList.Add(Auxiliar.MapVehiculoToAutomovil(item));
                 }
+
             return automovilList;
         }
     }

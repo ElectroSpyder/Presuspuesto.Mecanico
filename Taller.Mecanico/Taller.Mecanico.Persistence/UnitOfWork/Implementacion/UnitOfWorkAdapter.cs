@@ -27,6 +27,10 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Dispose transaction and if context close and dispose ther
+        /// </summary>
         public void Dispose()
         {
             _transaction?.Dispose();
@@ -39,6 +43,9 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
             }
         }
 
+        /// <summary>
+        /// Set Transaction commit
+        /// </summary>
         public void SaveChanges()
         {
             _transaction.Commit();

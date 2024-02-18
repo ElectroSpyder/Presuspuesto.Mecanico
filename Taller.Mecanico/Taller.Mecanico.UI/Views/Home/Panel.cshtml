@@ -1,0 +1,51 @@
+﻿@model EntitiesDTO.DTO.Request
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<EntitiesDTO.DTO.DesperfectoDTO> desperfectoList = ViewBag.DesperfectoList;
+    SelectList selectList = new SelectList(desperfectoList, "Id", "Descripcion");
+
+}
+
+<p>
+    <h2>Sistema de Inscripción / Actualización</h2>
+    <h4>Panel de Control</h4>
+</p>
+
+<div method="post" class="form-inline">
+
+    @Html.AntiForgeryToken()
+
+    <form id="formVehiculo" asp-controller="Home" asp-action="GuardarData">
+        <div class="form-group col-md-6">
+            <label for="inputPatente">Patente</label>
+            <input type="text" class="form-control" id="inputPatente" placeholder=" Patente " value="@Model.VehiculoDTO.Patente" disabled>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputModelo">Modelo</label>
+            <input type="text" class="form-control" id="inputModelo" placeholder=" Modelo " value="@Model.VehiculoDTO.Modelo" disabled>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputMarca">Marca</label>
+            <input type="text" class="form-control" id="inputMarca" placeholder=" Marca " value="@Model.VehiculoDTO.Marca" disabled>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="idDesperfecto">Desperfectos</label>
+            @Html.DropDownList("CustomItemDropdown", selectList, "--- Seleccione Desperfectos ---", new {@class = "form-control", @id="idDesperfecto"})
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">
+
+    </script>
+}

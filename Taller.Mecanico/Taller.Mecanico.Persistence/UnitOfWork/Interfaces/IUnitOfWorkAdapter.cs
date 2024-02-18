@@ -6,6 +6,8 @@
     public interface IUnitOfWorkAdapter : IDisposable
     {
         IUnitOfWorkRepository Repositories { get; }
+
+        void Dispose();
         void SaveChanges();
     }
 }
