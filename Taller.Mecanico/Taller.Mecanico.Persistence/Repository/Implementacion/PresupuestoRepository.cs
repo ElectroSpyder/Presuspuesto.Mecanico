@@ -31,7 +31,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Email", presupuesto.Email));
                 command.Parameters.Add(new SqlParameter("@Total", presupuesto.Total));
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar(); //& ExecuteCommandScalar(command);
                 
                 return result != null ? (decimal)result : 0;
 
@@ -51,7 +51,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("id", id));
                 command.CommandType = CommandType.StoredProcedure;
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
                 return result != null ? (decimal)result : 0;
             }
@@ -121,9 +121,9 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Email", presupuesto.Email));
                 command.Parameters.Add(new SqlParameter("@Total", presupuesto.Total));
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
-                return result != null ? (decimal)result : 0;
+                return result != null ? (Int32)result : 0;
 
             }
             catch (Exception ex)

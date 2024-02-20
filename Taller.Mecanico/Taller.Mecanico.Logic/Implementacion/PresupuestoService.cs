@@ -15,17 +15,31 @@ namespace Taller.Mecanico.Logic.Implementacion
 
         public decimal Create(PresupuestoDTO entity)
         {
-            var createPresupuesto = 0m;
+            var presupuestoId = 0m;
+            entity.Total = CalculoTotal(entity);
+
             using (var context = _unitOfWork.Create())
             {
-                createPresupuesto = context.Repositories.presupuestoRepository.Create(entity);
+                presupuestoId = context.Repositories.presupuestoRepository.Create(entity);
+                entity.Vehiculo.PresupuestoId = (int)presupuestoId;
+                var vehiculoUpdate = context.Repositories.vehiculolRepository.Update(entity.Vehiculo);
                 
-                if (createPresupuesto < 1) context.Dispose();
+                if (vehiculoUpdate < 1) throw new Exception();
+
+                foreach (var desperfecto in entity.Desperfectos)
+                {
+                    desperfecto.PresupuestoId = (int)presupuestoId;
+
+                    var desperfectoId = context.Repositories.desperfectoRepository.Update(Auxiliar.MapDtoToDesperfecto(desperfecto));
+                    if (desperfectoId < 1) throw new Exception();
+                }
                 context.SaveChanges();
+                
             }
-            return createPresupuesto;
+            return presupuestoId;
         }
 
+       
         public PresupuestoDTO Get(int id)
         {
             throw new NotImplementedException();
@@ -45,15 +59,51 @@ namespace Taller.Mecanico.Logic.Implementacion
                 foreach (var item in entity.Desperfectos)
                 {
                     var updateDesperfecto = context.Repositories.desperfectoRepository.Update(Auxiliar.MapDtoToDesperfecto(item));
-                    if (updateDesperfecto < 1) context.Dispose();
+                    
+                    result = true;
                 }
                 if (!result) throw new Exception("Error al actualiza un desperfecto");
 
                 updatePresupuesto = context.Repositories.presupuestoRepository.Update(entity);
-                if (updatePresupuesto > 0) context.SaveChanges();
+                
             }
 
             return updatePresupuesto;
         }
+
+        #region Calculos
+        private decimal CalculoTotal(PresupuestoDTO entity)
+        {
+            try
+            {
+                decimal subtotal = 0;
+
+                foreach (var desperfecto in entity.Desperfectos)
+                {
+                    decimal subtotalRepuesto = 0;
+                    var calculoDesperfecto = desperfecto.ManoDeObra + 130 * desperfecto.Tiempo;
+
+                    subtotal += calculoDesperfecto;
+
+                    foreach (var repuesto in desperfecto.Repuestos)
+                    {
+                        subtotalRepuesto += repuesto.Precio;
+                    }
+                    subtotal += subtotalRepuesto;
+                }
+                if(entity.Recargos != null)
+                    subtotal += entity.Recargos.Sum();
+
+                subtotal += 0.1m * subtotal;
+                return subtotal;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        #endregion
     }
 }

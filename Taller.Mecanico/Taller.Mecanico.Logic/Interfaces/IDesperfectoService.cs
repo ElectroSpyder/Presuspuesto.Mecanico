@@ -6,6 +6,7 @@ namespace Taller.Mecanico.Logic.Interfaces
     {
         public DesperfectoDTO Get(int id);
         public IEnumerable<DesperfectoDTO> GetAll();
-        public decimal Create(DesperfectoDTO entity);        
+        public decimal Create(DesperfectoDTO entity);    
+        public decimal Update(DesperfectoDTO entity);
     }
 }

@@ -25,14 +25,15 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@ManoDeObra", desperfecto.ManoDeObra));
                 command.Parameters.Add(new SqlParameter("@Tiempo", desperfecto.Tiempo));
                 command.Parameters.Add(new SqlParameter("@PresupuestoId", desperfecto.PresupuestoId == 0 ? DBNull.Value : desperfecto.PresupuestoId));
-                
-                var result = ExecuteCommandScalar(command);
+
+                var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
                 return result != null ? (decimal)result : 0;
 
             }
             catch (Exception ex)
             {
+                _transaction.Rollback();
                 throw new Exception(ex.Message);
             }
             
@@ -44,7 +45,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             command.Parameters.Add(new SqlParameter("id", id));
             command.CommandType = CommandType.StoredProcedure;
 
-            var result = ExecuteCommandScalar(command);
+            var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
             return result != null ? (decimal)result : 0;
         }
@@ -52,11 +53,11 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
         public Desperfecto Get(int id)
         {
             var desperfecto = new Desperfecto();
-            using var command = CreateCommand(StringObjects.GetAutomovil);
+            using var command = CreateCommand(StringObjects.GetDesperfecto);
             command.Parameters.AddWithValue("@id", id);
             
             DataTable dataTable = new ();
-            var adapter = ExecuteCommandAdapter(command);
+            using var adapter = new SqlDataAdapter(command);
             adapter.Fill(dataTable);
 
             if(dataTable.Rows.Count > 0)
@@ -82,10 +83,8 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 using var comman = CreateCommand(StringObjects.GetAllDesperfectos);
                 DataTable dataTable = new();
 
-                using var adapter = ExecuteCommandAdapter(comman);
-                {
-                    adapter.Fill(dataTable);
-                }
+                using var adapter = new SqlDataAdapter(comman);
+                adapter.Fill(dataTable);                
 
                 if (dataTable.Rows.Count > 0)
                 {
@@ -113,18 +112,20 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 using var command = CreateCommand(StringObjects.UpdateDesperfecto);
                 command.CommandType = CommandType.StoredProcedure;
 
+                command.Parameters.Add(new SqlParameter("@Id", desperfecto.Id));
                 command.Parameters.Add(new SqlParameter("@Descripcion", desperfecto.Descripcion));
                 command.Parameters.Add(new SqlParameter("@ManoDeObra", desperfecto.ManoDeObra));
                 command.Parameters.Add(new SqlParameter("@Tiempo", desperfecto.Tiempo));
                 command.Parameters.Add(new SqlParameter("@PresupuestoId", desperfecto.PresupuestoId == 0 ? DBNull.Value : desperfecto.PresupuestoId));
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
-                return result != null ? (decimal)result : 0;
+                return result != null ? (Int32)result : 0;
 
             }
             catch (Exception ex)
             {
+                _transaction.Rollback();
                 throw new Exception(ex.Message);
             }           
         }

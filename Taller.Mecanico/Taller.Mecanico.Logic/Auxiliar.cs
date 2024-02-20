@@ -30,13 +30,12 @@ namespace Taller.Mecanico.Logic
             }
         }
 
-        internal static VehiculoDTO MapAutomovilToVehiculo(AutomovilDTO automovilDTO)
+        internal static VehiculoDTO MapAutomovilToVehiculo(AutomovilRequest automovilDTO)
         {
             try
             {
                 return new VehiculoDTO
-                {
-                    Id = automovilDTO.Id,
+                {                   
                     CantidadPuertas = automovilDTO.CantidadPuertas,
                     Descripcion = automovilDTO.Descripcion,
                     Marca = automovilDTO.Marca,

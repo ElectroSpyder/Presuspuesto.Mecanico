@@ -27,7 +27,7 @@ namespace Taller.Mecanico.UI.Controllers
         {
             var model = new Request();
             model.VehiculoDTO = new VehiculoDTO();
-            model.DesperfectoDTOs = new List<DesperfectoDTO>();
+            model.Desperfectos = new List<DesperfectoDTO>();
             return View(model);
         }
 

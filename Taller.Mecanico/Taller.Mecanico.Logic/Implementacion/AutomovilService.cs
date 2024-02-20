@@ -13,7 +13,7 @@ namespace Taller.Mecanico.Logic.Implementacion
             _unitOfWork = unitOfWork;
         }
 
-        public decimal Create(AutomovilDTO entity)
+        public decimal Create(AutomovilRequest entity)
         {
             try
             {
@@ -22,8 +22,7 @@ namespace Taller.Mecanico.Logic.Implementacion
                 using (var context = _unitOfWork.Create())
                 {
                     createVehiculo = context.Repositories.vehiculolRepository.Create(vehiculoDTO);
-                    if (createVehiculo < 1) context.Dispose();
-                    //context.SaveChanges();
+                    context.SaveChanges();
                 }
                 return createVehiculo;
             }

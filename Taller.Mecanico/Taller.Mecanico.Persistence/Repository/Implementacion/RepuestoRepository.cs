@@ -30,7 +30,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Nombre", repuesto.Nombre));
                 command.Parameters.Add(new SqlParameter("@Precio", repuesto.Precio));
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar(); // ExecuteCommandScalar(command);
 
                 return result != null ? (decimal)result : 0;
 
@@ -125,9 +125,9 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Nombre", repuesto.Nombre));
                 command.Parameters.Add(new SqlParameter("@Precio", repuesto.Precio));
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
-                return result != null ? (decimal)result : 0;
+                return result != null ? (Int32)result : 0;
 
             }
             catch (Exception ex)

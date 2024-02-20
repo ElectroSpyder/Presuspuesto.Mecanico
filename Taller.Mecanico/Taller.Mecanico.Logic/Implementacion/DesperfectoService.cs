@@ -52,5 +52,24 @@ namespace Taller.Mecanico.Logic.Implementacion
 
             return dtoList;
         }
+
+        public decimal Update(DesperfectoDTO entity)
+        {
+            try
+            {
+                var desperfectoId = 0m;
+                using(var context = _unitOFWork.Create())
+                {
+                    desperfectoId= context.Repositories.desperfectoRepository.Update(Auxiliar.MapDtoToDesperfecto(entity));
+                }
+
+                return desperfectoId;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

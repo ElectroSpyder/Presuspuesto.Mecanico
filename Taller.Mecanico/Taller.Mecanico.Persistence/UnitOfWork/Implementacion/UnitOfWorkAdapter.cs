@@ -23,7 +23,8 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
                 Repositories = new UnitOfWorkRepository(_context, _transaction);
             }
             catch (Exception ex)
-            {                
+            {
+                //_transaction?.Dispose();
                 throw new Exception(ex.Message);
             }
         }

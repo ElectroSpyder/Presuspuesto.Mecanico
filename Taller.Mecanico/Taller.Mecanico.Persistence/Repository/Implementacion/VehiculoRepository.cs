@@ -37,7 +37,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@CantidadPuertas", vehiculo.CantidadPuertas));
                 command.Parameters.Add(new SqlParameter("@Cilindrada", vehiculo.Cilindrada));
 
-                var result = ExecuteCommandScalar(command);
+                var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
                 
                 return result != null ? (decimal)result : 0;
 
@@ -106,10 +106,10 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 using var comman = CreateCommand(StringObjects.GetAllVehiculos);
                 DataTable dataTable = new();
 
-                using (SqlDataAdapter adapter = new(comman))
-                {
-                    adapter.Fill(dataTable);
-                }
+                SqlDataAdapter adapter = new(comman);
+                
+                adapter.Fill(dataTable);
+                
 
                 if (dataTable.Rows.Count > 0)
                 {
@@ -134,6 +134,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
             command.CommandType = CommandType.StoredProcedure;
 
+            command.Parameters.Add(new SqlParameter("@Id", vehiculo.Id));
             command.Parameters.Add(new SqlParameter("@Marca", vehiculo.Marca));
             command.Parameters.Add(new SqlParameter("@Modelo", vehiculo.Modelo));
             command.Parameters.Add(new SqlParameter("@Patente", vehiculo.Patente));
@@ -144,9 +145,9 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             command.Parameters.Add(new SqlParameter("@CantidadPuertas", vehiculo.CantidadPuertas));
             command.Parameters.Add(new SqlParameter("@Cilindrada", vehiculo.Cilindrada));
 
-            var result = ExecuteCommandScalar(command);
+            var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
-            return result != null ? (decimal)result : 0 ;
+            return result != null ? (Int32)result : 0 ;
         }
 
         #region private Method

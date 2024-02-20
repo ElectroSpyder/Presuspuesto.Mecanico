@@ -49,5 +49,24 @@ namespace Taller.Mecanico.API.Controllers
             }
 
         }
+
+        [HttpPost("/DesperfectoPutModelo")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<DesperfectoDTO>> Update(DesperfectoDTO desperfecto)
+        {
+            try
+            {
+                var result = _service.Update(desperfecto);
+                await Task.Delay(100).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
     }
 }
