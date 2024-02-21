@@ -4,21 +4,21 @@ using Taller.Mecanico.Persistence.UnitOfWork.Interfaces;
 
 namespace Taller.Mecanico.Logic.Implementacion
 {
-    public class AutomovilService : IAutomovilService
+    public class MotoService : IMotoService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AutomovilService(IUnitOfWork unitOfWork)
+        public MotoService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public decimal Create(AutomovilRequest entity)
+        public decimal Create(MotoRequest entity)
         {
             try
             {
                 var createVehiculo = 0m;
-                var vehiculoDTO = Auxiliar.MapAutomovilToVehiculo(entity);
+                var vehiculoDTO = Auxiliar.MapMotoToVehiculo(entity);
                 using (var context = _unitOfWork.Create())
                 {
                     createVehiculo = context.Repositories.vehiculolRepository.Create(vehiculoDTO);
@@ -33,7 +33,7 @@ namespace Taller.Mecanico.Logic.Implementacion
             
         }
 
-        public AutomovilDTO Get(int id)
+        public MotoDTO Get(int id)
         {
             var vehiculoDTO = new VehiculoDTO();
 
@@ -42,15 +42,15 @@ namespace Taller.Mecanico.Logic.Implementacion
                 vehiculoDTO = context.Repositories.vehiculolRepository.Get(id);
             }
             if (vehiculoDTO != null)
-                return Auxiliar.MapVehiculoToAutomovil(vehiculoDTO);
+                return Auxiliar.MapVehiculoToMoto(vehiculoDTO);
 
-            return new AutomovilDTO();
+            return new MotoDTO();
         }
 
-        public IEnumerable<AutomovilDTO> GetAll()
+        public IEnumerable<MotoDTO> GetAll()
         {
             var vehiculoList = new List<VehiculoDTO>();
-            var automovilList = new List<AutomovilDTO>();
+            var motoList = new List<MotoDTO>();
 
             using (var context = _unitOfWork.Create())
             {
@@ -59,11 +59,11 @@ namespace Taller.Mecanico.Logic.Implementacion
             if(vehiculoList.Count > 0)
                 foreach (var item in vehiculoList)
                 {
-                    if(item.TipoVehiculo.Trim() == "Auto")
-                        automovilList.Add(Auxiliar.MapVehiculoToAutomovil(item));
+                    if(item.TipoVehiculo.Trim() == "Moto")
+                        motoList.Add(Auxiliar.MapVehiculoToMoto(item));
                 }
 
-            return automovilList;
+            return motoList;
         }
     }
 }

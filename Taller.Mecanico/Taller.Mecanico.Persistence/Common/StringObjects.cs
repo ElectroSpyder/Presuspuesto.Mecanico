@@ -37,6 +37,7 @@
 
         public static string GetRepuestoMasUtilizado = "SP_GetRepuestoMasUtilizado";
         public static string GetPromedio = "SP_GetPromedio";
+        public static string GetTotalPresupuestoPorVehiculo = "SP_GetTotalPresupuestoPorVehiculo";
         #endregion
     }
 }

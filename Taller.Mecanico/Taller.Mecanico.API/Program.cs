@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taller.Mecanico.Logic.Implementacion;
 using Taller.Mecanico.Logic.Interfaces;
 using Taller.Mecanico.Persistence.UnitOfWork.Implementacion;
@@ -16,6 +17,7 @@ builder.Services.AddTransient<IVehiculoService, VehiculoService>();
 builder.Services.AddTransient<IDesperfectoService, DesperfectoService>();
 builder.Services.AddTransient<IRepuestoService, RepuestoService>();
 builder.Services.AddTransient<IAutomovilService, AutomovilService>();
+builder.Services.AddTransient<IMotoService, MotoService>();
 builder.Services.AddTransient<IPresupuestoService, PresupuestoService>();
 
 builder.Services.AddTransient<IReporteService, ReporteService>();

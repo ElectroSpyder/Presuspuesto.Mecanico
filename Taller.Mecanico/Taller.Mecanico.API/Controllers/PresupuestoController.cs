@@ -83,7 +83,6 @@ namespace Taller.Mecanico.API.Controllers
            
         }
 
-        // POST: AutomovilController/Create
         [HttpPost("/presupuesto/GetAllPresupuesto")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -6,5 +6,6 @@ namespace Taller.Mecanico.Logic.Interfaces
     {
         RepuestoMasUsadoDTO GetRepuestoMasUsado();
         IEnumerable<PromedioMarcaModeloDTO> GetPromedio();
+        IEnumerable<TotalPorVehiculoDTO> GetTotalPorVehiculo();
     }
 }

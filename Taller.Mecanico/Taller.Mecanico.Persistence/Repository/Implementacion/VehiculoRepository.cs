@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using EntitiesDTO.DTO;
 using Taller.Mecanico.Persistence.Common;
 using Taller.Mecanico.Persistence.Repository.Interfaces;
+using System.Reflection;
 
 namespace Taller.Mecanico.Persistence.Repository.Implementacion
 {
@@ -103,10 +104,14 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             {
                 List<VehiculoDTO> vehiculoList = [];
                 using var comman = CreateCommand(StringObjects.GetAllVehiculos);
+                comman.CommandType = CommandType.StoredProcedure;
+
                 DataTable dataTable = new();
 
-                SqlDataAdapter adapter = new(comman);
-                
+                SqlDataAdapter adapter = new(comman)
+                {
+                    SelectCommand = comman
+                };
                 adapter.Fill(dataTable);
                 
 

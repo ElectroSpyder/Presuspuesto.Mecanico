@@ -30,6 +30,29 @@ namespace Taller.Mecanico.Logic
             }
         }
 
+        internal static MotoDTO MapVehiculoToMoto(VehiculoDTO vehiculo)
+        {
+            try
+            {
+                var motoDTO = new MotoDTO
+                {
+                    Id = vehiculo.Id,                    
+                    Descripcion = vehiculo.Descripcion,
+                    Marca = vehiculo.Marca,
+                    Modelo = vehiculo.Modelo,
+                    Patente = vehiculo.Patente,
+                    Cilindrada = vehiculo.Cilindrada
+                };
+
+                return motoDTO;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
         internal static VehiculoDTO MapAutomovilToVehiculo(AutomovilRequest automovilDTO)
         {
             try
@@ -44,6 +67,26 @@ namespace Taller.Mecanico.Logic
                     Cilindrada = string.Empty,
                     Tipo = automovilDTO.Tipo,
                     TipoVehiculo = automovilDTO.TipoVehiculo
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        internal static VehiculoDTO MapMotoToVehiculo(MotoRequest motoRequest)
+        {
+            try
+            {
+                return new VehiculoDTO
+                {                   
+                    Descripcion = motoRequest.Descripcion,
+                    Marca = motoRequest.Marca,
+                    Modelo = motoRequest.Modelo,
+                    Patente = motoRequest.Patente,
+                    Cilindrada = motoRequest.Cilindrada,
+                    TipoVehiculo = motoRequest.TipoVehiculo,
+                    CantidadPuertas = 0                     
                 };
             }
             catch (Exception ex)

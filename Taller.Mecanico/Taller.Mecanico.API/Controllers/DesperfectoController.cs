@@ -50,7 +50,7 @@ namespace Taller.Mecanico.API.Controllers
 
         }
 
-        [HttpPost("/DesperfectoPutModelo")]
+        [HttpPost("/Desperfecto/PutModelo")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<DesperfectoDTO>> Update(DesperfectoDTO desperfecto)

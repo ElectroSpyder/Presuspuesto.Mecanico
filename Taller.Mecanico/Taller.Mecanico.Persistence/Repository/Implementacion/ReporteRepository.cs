@@ -77,6 +77,55 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             }
         }
 
+        public IEnumerable<TotalPorVehiculoDTO> GetTotalPorVehiculo()
+        {
+            try
+            {
+                var sumatoriaList = new List<TotalPorVehiculoDTO>();
+
+                using var command = CreateCommand(StringObjects.GetTotalPresupuestoPorVehiculo);
+                command.CommandType = CommandType.StoredProcedure;
+
+                DataTable dataTable = new();
+                using var adapter = new SqlDataAdapter(command);
+                adapter.SelectCommand = command;
+
+                adapter.Fill(dataTable);
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        TotalPorVehiculoDTO grupo = MapToTotalPorVehiculo(row);
+                        sumatoriaList.Add(grupo);
+                    }
+                }
+
+                return sumatoriaList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private TotalPorVehiculoDTO MapToTotalPorVehiculo(DataRow reader)
+        {
+            try
+            {
+                var sumatoria = new TotalPorVehiculoDTO
+                {
+                    Total = reader["Total"] is DBNull ? 0 : (decimal)reader["Total"],
+                    TipoVehiculo = reader["TipoVehiculo"] is DBNull ? string.Empty : reader["TipoVehiculo"].ToString().Trim()
+                };
+                return sumatoria;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
         #region privado
         private PromedioMarcaModeloDTO MapToPromedio(DataRow reader)
         {

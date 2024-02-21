@@ -40,5 +40,20 @@ namespace Taller.Mecanico.Logic.Implementacion
                 throw new Exception(ex.Message);
             }
         }
+
+        public IEnumerable<TotalPorVehiculoDTO> GetTotalPorVehiculo()
+        {
+            try
+            {
+                using var context = _unitOfWork.Create();
+
+                return context.Repositories.reportesRepository.GetTotalPorVehiculo();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -50,5 +50,24 @@ namespace Taller.Mecanico.API.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+
+        [HttpGet("/reporte/GetTotalPorVehiculo")]
+        public async Task<List<TotalPorVehiculoDTO>> GetTotalPorVehiculo()
+        {
+            try
+            {
+                var result = _service.GetTotalPorVehiculo();
+
+                await Task.Delay(100).ConfigureAwait(false);
+
+                return result.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
