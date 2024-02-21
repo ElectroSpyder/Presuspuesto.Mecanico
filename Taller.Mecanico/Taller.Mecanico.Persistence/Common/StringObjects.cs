@@ -29,6 +29,11 @@
         public static string CreatePresupuesto = "SP_CreatePresupuesto";
         public static string DeletePresupuesto = "SP_DeletePresupuesto";
         public static string UpdatePresupuesto = "SP_UpdatePresupuesto";
+        public static string GetAllPresupuesto = "SP_GetAllPresupuesto";
+
+        public static string CreateDetalle = "SP_CreateDetalle";
+        public static string GetAllDetalleByIdPresupuesto = "SP_GetAllDetalleByIdPresupuesto";
+        public static string GetAllDesperfectoRepuestoByIdDesperfecto = "SP_GetAllDesperfectoRepuestoByIdDesperfecto";
         #endregion
     }
 }

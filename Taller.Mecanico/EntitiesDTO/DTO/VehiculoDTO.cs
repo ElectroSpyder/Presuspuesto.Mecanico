@@ -10,8 +10,6 @@
         public string Marca { get; set; }
         public string Modelo { get; set; }
         public string Patente { get; set; }
-        public PresupuestoDTO Presupuesto { get; set; }
-        public int PresupuestoId { get; set; } 
 
         public string? Descripcion { get; set; }
         public Tipo Tipo { get; set; }

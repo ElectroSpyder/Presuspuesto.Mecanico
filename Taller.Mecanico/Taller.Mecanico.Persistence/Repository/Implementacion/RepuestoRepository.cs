@@ -19,7 +19,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             _context = context;
             this._transaction = transaction;
         }
-        public decimal Create(Repuesto repuesto)
+        public decimal Create(RepuestoDTO repuesto)
         {
             try
             {
@@ -60,11 +60,11 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             }
         }
 
-        public Repuesto Get(int id)
+        public RepuestoDTO Get(int id)
         {
             try
             {
-                var repuesto = new Repuesto();
+                var repuesto = new RepuestoDTO();
                 using var command = CreateCommand(StringObjects.GetRepuesto);
                 command.Parameters.AddWithValue("@id", id);
 
@@ -84,11 +84,11 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             }
         }
 
-        public IEnumerable<Repuesto> GetAll()
+        public IEnumerable<RepuestoDTO> GetAll()
         {
             try
             {
-                List<Repuesto> repuestoList = [];
+                List<RepuestoDTO> repuestoList = [];
                 using var comman = CreateCommand(StringObjects.GetAllRepuesto);
                 DataTable dataTable = new();
 
@@ -101,7 +101,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 {
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        Repuesto grupo = MapToRepuesto(row);
+                        RepuestoDTO grupo = MapToRepuesto(row);
                         repuestoList.Add(grupo);
                     }
                 }
@@ -114,7 +114,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             }            
         }
 
-        public decimal Update(Repuesto repuesto)
+        public decimal Update(RepuestoDTO repuesto)
         {
             try
             {
@@ -137,11 +137,11 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
         }
 
         #region Privados
-        private Repuesto MapToRepuesto(DataRow reader)
+        private RepuestoDTO MapToRepuesto(DataRow reader)
         {
             try
             {
-                var repuesto = new Repuesto
+                var repuesto = new RepuestoDTO
                 {
                     Id = (int)reader["Id"],
                     Nombre = reader["Nombre"] is DBNull ? " " : (string)reader["Nombre"],

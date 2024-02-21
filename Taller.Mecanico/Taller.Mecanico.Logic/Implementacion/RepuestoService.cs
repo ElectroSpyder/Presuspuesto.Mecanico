@@ -15,11 +15,10 @@ namespace Taller.Mecanico.Logic.Implementacion
         }
 
         public decimal Create(RepuestoDTO entity)
-        {
-            Repuesto repuesto = Auxiliar.MapDtoToRepuesto(entity);
+        {            
             using (var context = _unitOFWork.Create())
             {
-                return context.Repositories.repuestoRepository.Create(repuesto);
+                return context.Repositories.repuestoRepository.Create(entity);
             }
         }
 
@@ -30,33 +29,26 @@ namespace Taller.Mecanico.Logic.Implementacion
 
         public RepuestoDTO Get(int id)
         {
-            var repuesto = new Repuesto();
+            var repuesto = new RepuestoDTO();
 
             using (var context = _unitOFWork.Create())
             {
                 repuesto = context.Repositories.repuestoRepository.Get(id);
             }
-            return Auxiliar.MapRepuestoToDTO(repuesto);
+            return repuesto;
 
         }
 
         public IEnumerable<RepuestoDTO> GetAll()
         {
-            var repuestoList = new List<Repuesto>();
-            var dtoList = new List<RepuestoDTO>();
+            var repuestoList = new List<RepuestoDTO>();
 
             using (var context = _unitOFWork.Create())
             {
                 repuestoList = context.Repositories.repuestoRepository.GetAll().ToList();
             }
 
-            if (repuestoList.Count > 0)
-                foreach (var item in repuestoList)
-                {
-                    dtoList.Add(Auxiliar.MapRepuestoToDTO(item));
-                }
-
-            return dtoList;
+            return repuestoList;
         }
 
         public bool Update(RepuestoDTO repuesto)

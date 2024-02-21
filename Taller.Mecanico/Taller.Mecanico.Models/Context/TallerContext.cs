@@ -15,6 +15,8 @@
         public DbSet<Moto> Moto { get; set; }
         public DbSet<Desperfecto> Desperfecto { get; set; }
         public DbSet<Repuesto> Repuesto { get; set; }
+        public DbSet<DesperfectoRepuesto> DesperfectoRepuesto { get; set; }
+        public DbSet<Detalle> Detalle { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

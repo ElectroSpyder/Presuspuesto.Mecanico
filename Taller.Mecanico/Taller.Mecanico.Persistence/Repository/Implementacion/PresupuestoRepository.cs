@@ -30,6 +30,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Apellido", presupuesto.Apellido));
                 command.Parameters.Add(new SqlParameter("@Email", presupuesto.Email));
                 command.Parameters.Add(new SqlParameter("@Total", presupuesto.Total));
+                command.Parameters.Add(new SqlParameter("@VehiculoId", presupuesto.Vehiculo.Id));
 
                 var result = command.ExecuteScalar(); //& ExecuteCommandScalar(command);
                 
@@ -65,47 +66,38 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
         public PresupuestoDTO Get(int id)
         {
-            throw new NotImplementedException();
-            //var vehiculo = new VehiculoDTO();
-            //var command = CreateCommand(StringObjects.GetAutomovil);
-            //command.Parameters.AddWithValue("@id", id);
-
-            //using (var reader = command.ExecuteReader())
-            //{
-            //    reader.Read();
-
-            //    vehiculo.Id = ReaderHelper.ConvertFromReader<int>(reader["Id"]);
-            //    vehiculo.Tipo = ReaderHelper.ConvertFromReader<EntitiesDTO.DTO.Tipo>(reader["Tipo"]);
-            //    vehiculo.Descripcion = ReaderHelper.ConvertFromReader<string>(reader["Description"]);
-            //    vehiculo.CantidadPuertas = ReaderHelper.ConvertFromReader<int>(reader["CantidadPuertas"]);
-
-            //}
-
-            //return vehiculo;
+            throw new NotImplementedException();           
         }
 
         public IEnumerable<PresupuestoDTO> GetAll()
         {
-            throw new NotImplementedException();
-            //List<VehiculoDTO> vehiculoList = [];
-            //var comman = CreateCommand(StringObjects.GetAllVehiculos);
-            //DataTable dataTable = new();
 
-            //using (SqlDataAdapter adapter = new(comman))
-            //{                
-            //    adapter.Fill(dataTable);                
-            //}
+            try
+            {
+                List<PresupuestoDTO> presupuestoList = [];
+                using var comman = CreateCommand(StringObjects.GetAllPresupuesto);
+                DataTable dataTable = new();
 
-            //if(dataTable.Rows.Count > 0)
-            //{
-            //    foreach (DataRow row in dataTable.Rows)
-            //    {
-            //        VehiculoDTO grupo = MapToVehiculo(row);
-            //        vehiculoList.Add(grupo);
-            //    }                
-            //}
+                SqlDataAdapter adapter = new(comman);
 
-            //return vehiculoList;
+                adapter.Fill(dataTable);
+
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        PresupuestoDTO grupo = MapToPresupuesto(row);
+                        presupuestoList.Add(grupo);
+                    }
+                }
+
+                return presupuestoList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
         }
         public decimal Update(PresupuestoDTO presupuesto)
@@ -120,6 +112,7 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Apellido", presupuesto.Apellido));
                 command.Parameters.Add(new SqlParameter("@Email", presupuesto.Email));
                 command.Parameters.Add(new SqlParameter("@Total", presupuesto.Total));
+                command.Parameters.Add(new SqlParameter("@VehiculoId", presupuesto.Vehiculo.Id));
 
                 var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
 
@@ -134,24 +127,22 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
 
         #region private Method
 
-        private static VehiculoDTO MapToVehiculo(DataRow reader)
+        private static PresupuestoDTO MapToPresupuesto(DataRow reader)
         {
             try
             {
-                var vehiculo = new VehiculoDTO
+
+                var presupuesto = new PresupuestoDTO
                 {
-                    Id = (int)reader["Id"],
-                    Marca = reader["Marca"] is DBNull ? " " : (string)reader["Marca"],
-                    Modelo = reader["Modelo"] is DBNull ? " " : (string)reader["Modelo"],
-                    Patente = reader["Patente"] is DBNull ? " " : (string)reader["Patente"],
-                    TipoVehiculo = reader["TipoVehiculo"] is DBNull ? " " : (string)reader["TipoVehiculo"],
-                    Descripcion = reader["Descripcion"] is DBNull ? " " : (string)reader["Descripcion"],
-                    Tipo = (Tipo)(int)reader["Tipo"],
-                    CantidadPuertas = (int)reader["CantidadPuertas"],
-                    Cilindrada = reader["Cilindrada"] is DBNull ? " " : (string)reader["Cilindrada"]
+                    Id = reader["Id"] is DBNull ? 0 : (int)reader["Id"],
+                    Nombre = reader["Nombre"] is DBNull ? " " : (string)reader["Nombre"],
+                    Apellido = reader["Apellido"] is DBNull ? " " : (string)reader["Apellido"],
+                    Email = reader["Email"] is DBNull ? " " : (string)reader["Email"],
+                    VehiculoId = reader["VehiculoId"] is DBNull ? 0 : (int)reader["VehiculoId"],
+                    Total = reader["Total"] is DBNull ? 0 : (decimal)reader["Total"]
                 };
 
-                return vehiculo;
+                return presupuesto;
             }
             catch (Exception ex)
             {

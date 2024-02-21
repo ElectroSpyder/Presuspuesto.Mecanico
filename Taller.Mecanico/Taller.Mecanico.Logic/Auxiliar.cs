@@ -61,8 +61,7 @@ namespace Taller.Mecanico.Logic
                     Id = entity.Id,
                     Descripcion = entity.Descripcion,
                     ManoDeObra = entity.ManoDeObra,
-                    Tiempo = entity.Tiempo,
-                    PresupuestoId = entity.PresupuestoId
+                    Tiempo = entity.Tiempo
                 };
 
             }
@@ -81,8 +80,7 @@ namespace Taller.Mecanico.Logic
                     Id = desperfecto.Id,
                     Descripcion = desperfecto.Descripcion,
                     ManoDeObra = desperfecto.ManoDeObra,
-                    Tiempo = desperfecto.Tiempo,
-                    PresupuestoId = desperfecto.PresupuestoId
+                    Tiempo = desperfecto.Tiempo
                 };
             }catch (Exception ex) { throw new Exception(ex.Message, ex); }
         }
@@ -113,6 +111,24 @@ namespace Taller.Mecanico.Logic
                 };
             }
             catch (Exception ex) { throw new Exception(ex.Message, ex); }
+        }
+
+        internal static Detalle MapDtoToDetalle(DetalleDTO detalle)
+        {
+            try
+            {
+                return new Detalle
+                {
+                    Id = detalle.Id,
+                    PresupuestoId = detalle.PresupuestoId,
+                    DesperfectoId = detalle.DesperfectoId
+                };
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

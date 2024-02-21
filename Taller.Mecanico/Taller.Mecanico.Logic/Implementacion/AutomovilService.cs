@@ -22,7 +22,7 @@ namespace Taller.Mecanico.Logic.Implementacion
                 using (var context = _unitOfWork.Create())
                 {
                     createVehiculo = context.Repositories.vehiculolRepository.Create(vehiculoDTO);
-                    context.SaveChanges();
+                    if(createVehiculo > 0 ) context.SaveChanges();
                 }
                 return createVehiculo;
             }

@@ -16,27 +16,30 @@ namespace Taller.Mecanico.Logic.Implementacion
 
         public decimal Create(DesperfectoDTO entity)
         {
-            Desperfecto desperfecto = Auxiliar.MapDtoToDesperfecto(entity);
+            var result = 0m;
+            //Desperfecto desperfecto = Auxiliar.MapDtoToDesperfecto(entity);
             using (var context = _unitOFWork.Create())
             {
-                return context.Repositories.desperfectoRepository.Create(desperfecto);
+                result = context.Repositories.desperfectoRepository.Create(entity);
+                if (result > 0) context.SaveChanges();
             }
+            return result;
         }
         public DesperfectoDTO Get(int id)
         {
-            var desperfecto = new Desperfecto();
+            var desperfecto = new DesperfectoDTO();
 
             using (var context = _unitOFWork.Create())
             {
                 desperfecto = context.Repositories.desperfectoRepository.Get(id);
             }
-            return Auxiliar.MapDesperfectoToDTO(desperfecto);
+            return desperfecto;
             
         }
 
         public IEnumerable<DesperfectoDTO> GetAll()
         {
-            var desperfectoList = new List<Desperfecto>();
+            var desperfectoList = new List<DesperfectoDTO>();
             var dtoList = new List<DesperfectoDTO>();
 
             using (var context = _unitOFWork.Create())
@@ -47,7 +50,7 @@ namespace Taller.Mecanico.Logic.Implementacion
             if (desperfectoList.Count > 0)
                 foreach (var item in desperfectoList)
                 {
-                    dtoList.Add(Auxiliar.MapDesperfectoToDTO(item));
+                    dtoList.Add(item);
                 }
 
             return dtoList;
@@ -60,7 +63,8 @@ namespace Taller.Mecanico.Logic.Implementacion
                 var desperfectoId = 0m;
                 using(var context = _unitOFWork.Create())
                 {
-                    desperfectoId= context.Repositories.desperfectoRepository.Update(Auxiliar.MapDtoToDesperfecto(entity));
+                    desperfectoId= context.Repositories.desperfectoRepository.Update(entity);
+                    if (desperfectoId > 0) context.SaveChanges();
                 }
 
                 return desperfectoId;

@@ -21,17 +21,19 @@ namespace Taller.Mecanico.Logic.Implementacion
             using (var context = _unitOfWork.Create())
             {
                 presupuestoId = context.Repositories.presupuestoRepository.Create(entity);
-                entity.Vehiculo.PresupuestoId = (int)presupuestoId;
-                var vehiculoUpdate = context.Repositories.vehiculolRepository.Update(entity.Vehiculo);
                 
-                if (vehiculoUpdate < 1) throw new Exception();
-
                 foreach (var desperfecto in entity.Desperfectos)
                 {
-                    desperfecto.PresupuestoId = (int)presupuestoId;
+                    var detalle =
+                        new DetalleDTO
+                        {
+                            DesperfectoId = desperfecto.Id,
+                            PresupuestoId = (int)presupuestoId
+                        };
 
-                    var desperfectoId = context.Repositories.desperfectoRepository.Update(Auxiliar.MapDtoToDesperfecto(desperfecto));
-                    if (desperfectoId < 1) throw new Exception();
+                    var detalleId = context.Repositories.detalleRepository.Create(Auxiliar.MapDtoToDetalle(detalle));
+                    
+                    if (detalleId < 1) throw new Exception();
                 }
                 context.SaveChanges();
                 
@@ -42,33 +44,90 @@ namespace Taller.Mecanico.Logic.Implementacion
        
         public PresupuestoDTO Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var context = _unitOfWork.Create();
+
+                var result = context.Repositories.presupuestoRepository.Get(id);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public IEnumerable<PresupuestoDTO> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<PresupuestoDTO> presupuestoList = [];
+                List<DetalleDTO> detalleList = [];
+                
+                using var context = _unitOfWork.Create();
+
+                var presupuestos = context.Repositories.presupuestoRepository.GetAll().ToList();
+
+                foreach (var presupuesto in presupuestos)
+                {
+                    var presupuestoDTO = new PresupuestoDTO();
+                    presupuestoDTO = presupuesto;
+
+                    presupuestoDTO.Detalle = context.Repositories.detalleRepository.GetAllByIdPresupuesto(presupuesto.Id).ToList();
+
+                    if (presupuestoDTO.Detalle.Count > 0)
+                    {
+                        foreach (var detalle in presupuestoDTO.Detalle)
+                        {
+                            DesperfectoDTO desperfecto = new();
+                            desperfecto = context.Repositories.desperfectoRepository.Get(detalle.DesperfectoId);
+
+                            var desperfectoRepuestosList = context.Repositories.desperfectoRepuestoRepository.GetAllDesperfectoRepuestoByIdDesperfecto(desperfecto.Id).ToList();
+
+                            foreach (var desperfectoRepuesto in desperfectoRepuestosList)
+                            {
+                                var repuesto = context.Repositories.repuestoRepository.Get(desperfectoRepuesto.RepuestosId);
+                                desperfecto.Repuestos.Add(repuesto);
+                            }
+
+                            presupuestoDTO.Desperfectos.Add(desperfecto);
+                        }
+                    }
+                    
+                    presupuestoList.Add(presupuestoDTO);
+                }
+                
+                return presupuestoList;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public decimal Update(PresupuestoDTO entity)
         {
-            var updatePresupuesto = 0m;
+            var presupuestoId = 0m;
             using (var context = _unitOfWork.Create())
             {
                 var result = false;
                 foreach (var item in entity.Desperfectos)
                 {
-                    var updateDesperfecto = context.Repositories.desperfectoRepository.Update(Auxiliar.MapDtoToDesperfecto(item));
+                    var updateDesperfecto = context.Repositories.desperfectoRepository.Update(item);
                     
                     result = true;
                 }
                 if (!result) throw new Exception("Error al actualiza un desperfecto");
 
-                updatePresupuesto = context.Repositories.presupuestoRepository.Update(entity);
+                presupuestoId = context.Repositories.presupuestoRepository.Update(entity);
+                if (presupuestoId > 0) context.SaveChanges();
                 
             }
 
-            return updatePresupuesto;
+            return presupuestoId;
         }
 
         #region Calculos

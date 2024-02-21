@@ -12,7 +12,5 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
             return _unitOfWorkAdapter;
         }
 
-        //public void SaveChanges() => _unitOfWorkAdapter.SaveChanges();
-        //public void Dispose() => _unitOfWorkAdapter.Dispose();
     }
 }

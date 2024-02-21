@@ -1,13 +1,14 @@
-﻿using Taller.Mecanico.Models.Entities;
+﻿using EntitiesDTO.DTO;
+using Taller.Mecanico.Models.Entities;
 
 namespace Taller.Mecanico.Persistence.Repository.Interfaces
 {
     public interface IDesperfectoRepository
     {
-        decimal Create(Desperfecto desperfecto);
+        decimal Create(DesperfectoDTO desperfecto);
         decimal Delete(int id);
-        public Desperfecto Get(int id);
-        public IEnumerable<Desperfecto> GetAll();
-        decimal Update(Desperfecto desperfecto);
+        public DesperfectoDTO Get(int id);
+        public IEnumerable<DesperfectoDTO> GetAll();
+        int Update(DesperfectoDTO desperfecto);
     }
 }

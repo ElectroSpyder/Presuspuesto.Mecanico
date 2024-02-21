@@ -82,5 +82,24 @@ namespace Taller.Mecanico.API.Controllers
             }
            
         }
+
+        // POST: AutomovilController/Create
+        [HttpPost("/presupuesto/GetAllPresupuesto")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PresupuestoDTO>> GetAll() 
+        {
+            try
+            {
+                var result = _presupuestoService.GetAll();
+                await Task.Delay(100).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

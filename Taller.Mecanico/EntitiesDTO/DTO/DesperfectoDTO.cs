@@ -10,7 +10,6 @@
         public string Descripcion { get; set; }
         public decimal ManoDeObra { get; set; }
         public int Tiempo { get; set; }       
-        public int PresupuestoId { get; set; }
         public List<RepuestoDTO> Repuestos { get; set; }
     }
 }

@@ -30,7 +30,6 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
                 command.Parameters.Add(new SqlParameter("@Marca", vehiculo.Marca));
                 command.Parameters.Add(new SqlParameter("@Modelo", vehiculo.Modelo));
                 command.Parameters.Add(new SqlParameter("@Patente", vehiculo.Patente));
-                command.Parameters.Add(new SqlParameter("@PresupuestoId", vehiculo.PresupuestoId == 0 ? DBNull.Value : vehiculo.PresupuestoId));
                 command.Parameters.Add(new SqlParameter("@TipoVehiculo", vehiculo.TipoVehiculo));
                 command.Parameters.Add(new SqlParameter("@Descripcion", vehiculo.Descripcion));
                 command.Parameters.Add(new SqlParameter("@Tipo", vehiculo.Tipo));
@@ -138,14 +137,13 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             command.Parameters.Add(new SqlParameter("@Marca", vehiculo.Marca));
             command.Parameters.Add(new SqlParameter("@Modelo", vehiculo.Modelo));
             command.Parameters.Add(new SqlParameter("@Patente", vehiculo.Patente));
-            command.Parameters.Add(new SqlParameter("@PresupuestoId", vehiculo.PresupuestoId == 0 ? DBNull.Value : vehiculo.PresupuestoId));
             command.Parameters.Add(new SqlParameter("@TipoVehiculo", vehiculo.TipoVehiculo));
             command.Parameters.Add(new SqlParameter("@Descripcion", vehiculo.Descripcion));
             command.Parameters.Add(new SqlParameter("@Tipo", vehiculo.Tipo));
             command.Parameters.Add(new SqlParameter("@CantidadPuertas", vehiculo.CantidadPuertas));
             command.Parameters.Add(new SqlParameter("@Cilindrada", vehiculo.Cilindrada));
 
-            var result = command.ExecuteScalar();// ExecuteCommandScalar(command);
+            var result = command.ExecuteScalar();
 
             return result != null ? (Int32)result : 0 ;
         }

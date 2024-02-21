@@ -10,7 +10,8 @@ namespace Taller.Mecanico.Models.Entities
         public string? Apellido { get; set; }
         public string? Email { get; set; }
         public decimal Total { get; set; }
-        public ICollection<Vehiculo>? Vehiculos { get; set; }
-        public ICollection<Desperfecto>? Desperfectos { get; set; }
+        public Vehiculo Vehiculo { get; set; }
+        public int VehiculoId { get; set; }
+        
     }
 }
