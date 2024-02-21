@@ -34,6 +34,9 @@
         public static string CreateDetalle = "SP_CreateDetalle";
         public static string GetAllDetalleByIdPresupuesto = "SP_GetAllDetalleByIdPresupuesto";
         public static string GetAllDesperfectoRepuestoByIdDesperfecto = "SP_GetAllDesperfectoRepuestoByIdDesperfecto";
+
+        public static string GetRepuestoMasUtilizado = "SP_GetRepuestoMasUtilizado";
+        public static string GetPromedio = "SP_GetPromedio";
         #endregion
     }
 }

@@ -18,6 +18,8 @@ builder.Services.AddTransient<IRepuestoService, RepuestoService>();
 builder.Services.AddTransient<IAutomovilService, AutomovilService>();
 builder.Services.AddTransient<IPresupuestoService, PresupuestoService>();
 
+builder.Services.AddTransient<IReporteService, ReporteService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

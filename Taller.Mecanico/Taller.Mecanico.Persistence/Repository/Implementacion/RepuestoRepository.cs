@@ -90,10 +90,12 @@ namespace Taller.Mecanico.Persistence.Repository.Implementacion
             {
                 List<RepuestoDTO> repuestoList = [];
                 using var comman = CreateCommand(StringObjects.GetAllRepuesto);
+                comman.CommandType = CommandType.StoredProcedure;
                 DataTable dataTable = new();
 
                 using (SqlDataAdapter adapter = new(comman))
                 {
+                    adapter.SelectCommand = comman;
                     adapter.Fill(dataTable);
                 }
 

@@ -15,6 +15,7 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
             presupuestoRepository = new PresupuestoRepository(context, _transaction);
             detalleRepository = new DetalleRepository(context, _transaction);
             desperfectoRepuestoRepository = new DesperfectoRepuestoRepository(context, _transaction);
+            reportesRepository = new ReporteRepository(context, _transaction);
         }
 
         public IVehiculoRepository vehiculolRepository { get; }
@@ -24,5 +25,6 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Implementacion
         public IDetalleRepository detalleRepository { get; }
 
         public IDesperfectoRepuestoRepository desperfectoRepuestoRepository { get; }
+        public IReportesRepository reportesRepository { get; }
     }
 }

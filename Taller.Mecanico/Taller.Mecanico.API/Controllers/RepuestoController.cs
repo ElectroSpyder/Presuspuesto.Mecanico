@@ -21,11 +21,10 @@ namespace Taller.Mecanico.API.Controllers
             try
             {
                 var result = _service.GetAll().ToList();
-                List<RepuestoDTO> repuestoList = new List<RepuestoDTO>();
-               
+                              
                 await Task.Delay(100).ConfigureAwait(false);
 
-                return repuestoList;
+                return result;
             }
             catch (Exception ex)
             {

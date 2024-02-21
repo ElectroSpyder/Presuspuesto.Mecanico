@@ -11,5 +11,6 @@ namespace Taller.Mecanico.Persistence.UnitOfWork.Interfaces
         public IPresupuestoRepository presupuestoRepository { get; }
         public IDetalleRepository detalleRepository { get; }
         public IDesperfectoRepuestoRepository desperfectoRepuestoRepository { get; }
+        public IReportesRepository reportesRepository { get; }
     }
 }
